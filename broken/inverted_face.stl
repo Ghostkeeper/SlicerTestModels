@@ -1,0 +1,58 @@
+solid InvertedFace
+  facet normal 0.49029 0.849208 0.196116
+    outer loop
+      vertex -25 43.3013 0
+      vertex 10 0 100
+      vertex 50 0 0
+    endloop
+  endfacet
+  facet normal 0.49029 0.849208 0.196116
+    outer loop
+      vertex -25 43.3013 0
+      vertex -5 8.66025 100
+      vertex 10 0 100
+    endloop
+  endfacet
+  facet normal -0.980581 3.62039e-16 0.196116
+    outer loop
+      vertex -25 -43.3013 0
+      vertex -5 8.66025 100
+      vertex -25 43.3013 0
+    endloop
+  endfacet
+  facet normal -0.980581 1.28725e-16 0.196116
+    outer loop
+      vertex -25 -43.3013 0
+      vertex -5 -8.66025 100
+      vertex -5 8.66025 100
+    endloop
+  endfacet
+  facet normal 0.49029 -0.849208 0.196116
+    outer loop
+      vertex 50 0 0
+      vertex -5 -8.66025 100
+      vertex -25 -43.3013 0
+    endloop
+  endfacet
+  facet normal 0.49029 -0.849208 0.196116
+    outer loop
+      vertex 50 0 0
+      vertex 10 0 100
+      vertex -5 -8.66025 100
+    endloop
+  endfacet
+  facet normal 0 0 -1
+    outer loop
+      vertex -25 -43.3013 0
+      vertex -25 43.3013 0
+      vertex 50 0 0
+    endloop
+  endfacet
+  facet normal 0 0 -1
+    outer loop
+      vertex 10 0 100
+      vertex -5 -8.66025 100
+      vertex -5 8.66025 100
+    endloop
+  endfacet
+endsolid InvertedFace

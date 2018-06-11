@@ -1,0 +1,16 @@
+solid PlaneFlat
+facet normal 1600 0 0
+outer loop
+vertex 0 0 40
+vertex 0 40 40
+vertex 40 40 40
+endloop
+endfacet
+facet normal 1600 0 0
+outer loop
+vertex 40 0 40
+vertex 0 0 40
+vertex 40 40 40
+endloop
+endfacet
+endsolid PlaneFlat

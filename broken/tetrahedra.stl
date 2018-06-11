@@ -1,0 +1,60 @@
+solid Test1
+  facet normal 0.468165 0.810885 0.351123
+    outer loop
+      vertex 24.4949 0 0
+      vertex -12.2474 21.2132 0
+      vertex 0 0 32.6599
+    endloop
+  endfacet
+  facet normal -0.936329 0 0.351123
+    outer loop
+      vertex -12.2474 21.2132 0
+      vertex -12.2474 -21.2132 0
+      vertex 0 0 32.6599
+    endloop
+  endfacet
+  facet normal 0.468165 -0.810885 0.351123
+    outer loop
+      vertex 0 0 32.6599
+      vertex -12.2474 -21.2132 0
+      vertex 24.4949 0 0
+    endloop
+  endfacet
+  facet normal -0 0 -1
+    outer loop
+      vertex 24.4949 0 0
+      vertex -12.2474 -21.2132 0
+      vertex -12.2474 21.2132 0
+    endloop
+  endfacet
+endsolid Test1
+solid Test2
+  facet normal 0.468165 0.810885 0.351123
+    outer loop
+      vertex 104.495 0 0
+      vertex 67.7525 21.2132 0
+      vertex 80 0 32.6599
+    endloop
+  endfacet
+  facet normal -0.936329 0 0.351124
+    outer loop
+      vertex 67.7525 21.2132 0
+      vertex 67.7525 -21.2132 0
+      vertex 80 0 32.6599
+    endloop
+  endfacet
+  facet normal 0.468165 -0.810885 0.351123
+    outer loop
+      vertex 80 0 32.6599
+      vertex 67.7525 -21.2132 0
+      vertex 104.495 0 0
+    endloop
+  endfacet
+  facet normal -0 0 -1
+    outer loop
+      vertex 104.495 0 0
+      vertex 67.7525 -21.2132 0
+      vertex 67.7525 21.2132 0
+    endloop
+  endfacet
+endsolid Test2
