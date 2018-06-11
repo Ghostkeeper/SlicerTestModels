@@ -34,6 +34,13 @@ text            | Models with text in/on them. These are useful for walls but no
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 x3d             | The X3D file format. Tests if we can load these files properly.
 
+Contributing
+------------
+You can add files to this repository via a pull request, but there are a couple of rules that should be enforced:
+* Files should be no larger than 1MB. This prevents getting a huge Git history. If need be we can introduce links to permanent download locations so that additional pre-rendered files may be found but let's try to prevent that from being necessary for now.
+* All files will be published under the CC0 Creative Commons license. Make sure that you have the right to publish it as such.
+* The maintainer(s) of this repository reserve the final arbitrage to judge whether it is appropriate for a model to be shared under the premise that it tests certain slicer features.
+
 License
 -------
 These models are all in the public domain, under the CC0 Creative Commons license. Please use and share these models. For details, see [the license](https://github.com/Ghostkeeper/SlicerTestModels/blob/master/LICENSE.md).
