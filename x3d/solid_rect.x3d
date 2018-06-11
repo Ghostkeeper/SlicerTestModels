@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN"   "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Immersive' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance'
+     xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+     <Scene>
+         <Transform translation="0 0 3">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="2 4"/>
+            </Shape>
+         </Transform>
+         <Transform translation="0 0 -3" rotation="1 0 0 3.14159265">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="2 4"/>
+            </Shape>
+        </Transform>
+
+        <Transform translation="0 2 0" rotation="1 0 0 -1.5707963">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="2 6"/>
+            </Shape>
+        </Transform>
+
+        <Transform translation="0 -2 0" rotation="1 0 0 1.5707963">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="2 6"/>
+            </Shape>
+        </Transform>
+
+        <Transform translation="1 0 0" rotation="0 1 0 1.5707963">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="6 4"/>
+            </Shape>
+        </Transform>
+
+        <Transform translation="-1 0 0" rotation="0 1 0 -1.5707963">
+            <Shape><Appearance DEF="TealNoTex"><Material diffuseColor="0 0.5 0.5"/></Appearance>
+                <Rectangle2D size="6 4"/>
+            </Shape>
+        </Transform>
+    </Scene>
+</X3D>    

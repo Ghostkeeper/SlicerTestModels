@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd">
+<X3D profile='Immersive' version='3.0' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.0.xsd'>
+	<Scene>
+		<Shape>
+			<Appearance DEF="TealNoTex">
+				<Material diffuseColor="0 0.5 0.5"/>
+			</Appearance>
+			<IndexedFaceSet coordIndex="0 1 2 3 4 5 -1 11 10 9 8 7 6 -1 0 6 7 1 -1 1 7 8 2 -1 2 8 9 3 -1 3 9 10 4 -1 4 10 11 5 -1 5 11 6 0" convex="false" solid="true">
+				<Coordinate point="-0.4 0.4 0 0 2 0 0.4 0.4 0 2 -0.8 0 0 -0.2 0 -2 -0.8 0 -0.4 0.4 1 0 2 1 0.4 0.4 1 2 -0.8 1 0 -0.2 1 -2 -0.8 1"/>
+			</IndexedFaceSet>
+		</Shape>
+	</Scene>
+</X3D>
+

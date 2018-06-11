@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.3//EN" "http://www.web3d.org/specifications/x3d-3.3.dtd">
+<X3D profile='Interchange' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd'>
+    <head>
+        <meta content='pyramid_0.x3d' name='title'/>
+        <meta content='Test case for Cura X3D import; with commas in IndexedTriangleSet/Coordinate/@point attribute' name='description'/>
+        <meta content='Vincent Marchetti' name='creator'/>        
+        <meta content='10 Nov 2016' name='created'/>        
+        <meta content='X3D-Edit 3.3, https://savage.nps.edu/X3D-Edit' name='generator'/>
+        <meta content='http://creativecommons.org/licenses/by/4.0/' name='license'/>
+    </head>
+    <Scene>
+        <NavigationInfo/>
+        <Viewpoint description='Top' fieldOfView='0.39'  position='0 0 0.2'/>
+        <Shape bboxCenter='0 0.3 0' bboxSize='1.0e-3 0.86e-3 0.82e-3'>
+            <IndexedTriangleSet containerField='geometry' colorPerVertex='false' normalPerVertex='false' index='0 1 2 0 3 1 1 3 2 2 3 0'>
+                <Coordinate point='0 14.66e-3 0, 12.7e-3 -7.34e-3 0, -12.7e-3 -7.34e-3 0, 0 0 20.73e-3,'/>
+            </IndexedTriangleSet>
+            <Appearance>			
+                <Material emissiveColor='0.141176 0.321569 0'/>
+            </Appearance>
+        </Shape>
+    </Scene>
+</X3D>
