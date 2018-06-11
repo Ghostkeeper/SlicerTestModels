@@ -27,6 +27,7 @@ skin            | Models with various shapes of skin, layers of skin or thicknes
 slicing         | 3D models that test the slicing stage of a slicer, where it takes cross-sections of the model.
 speed           | Models for real-world printing tests to see how well the printer behaves at high printing velocities.
 spiralise       | Testing models for the "spiralize" feature of Cura and similar features of other slicers. These are aimed at printing with one wall without much overhang. Due to the spiralising, the z-seam should be gone.
+stl             | The STL file format. Tests if we can load these files properly.
 support         | These models have some structures that need to be supported in order to print well. Tests support generation under various constraints, such as when it has to rest on the model, avoid the model, not go outside of the build plate, etc.
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 
