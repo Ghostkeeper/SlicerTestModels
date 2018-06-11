@@ -28,6 +28,7 @@ slicing         | 3D models that test the slicing stage of a slicer, where it ta
 speed           | Models for real-world printing tests to see how well the printer behaves at high printing velocities.
 spiralise       | Testing models for the "spiralize" feature of Cura and similar features of other slicers. These are aimed at printing with one wall without much overhang. Due to the spiralising, the z-seam should be gone.
 stl             | The STL file format. Tests if we can load these files properly.
+stress_test     | Some very big models, with lots of parts or things that otherwise take the slicer and printer to their limits. Use to test performance of the slicer.
 support         | These models have some structures that need to be supported in order to print well. Tests support generation under various constraints, such as when it has to rest on the model, avoid the model, not go outside of the build plate, etc.
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 
