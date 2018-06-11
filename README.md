@@ -2,7 +2,6 @@ This is a collection of test models that I've been using to test slicers and 3D 
 
 Categories
 ==========
-
 This repository contains the following categories of models:
 
 Category        | Description
@@ -15,3 +14,7 @@ multi_extrusion | Models that are intended to print with multiple extruders. Tes
 speed           | Models for real-world printing tests to see how well the printer behaves at high printing velocities.
 support         | These models have some structures that need to be supported in order to print well. Tests support generation under various constraints, such as when it has to rest on the model, avoid the model, not go outside of the build plate, etc.
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
+
+License
+=======
+These models are all in the public domain, under the CC0 Creative Commons license. Please use and share these models. For details, see [the license](https://github.com/Ghostkeeper/SlicerTestModels/blob/master/LICENSE.md).
