@@ -16,6 +16,7 @@ broken          | Model files that contain faults. They may have syntax mistakes
 combing         | Aimed at testing how well the nozzle avoids going through walls unnecessary. This has models both to test collision avoidance (avoiding going from outside to inside) and maze-like internal shapes (avoiding going from inside to outside).
 filenames       | Files with strange file names. The file names have special characters or are located in folders that have special characters.
 flow            | Real-world tests to see if the printer regulates its flow well.
+infill          | Models containing various shapes for infill to print in. These may contain thin pieces or just various shapes that test the order in which lines are printed.
 multi_extrusion | Models that are intended to print with multiple extruders. Tests adhesion between adjacent parts and nozzle switching strategies.
 my              | Personal projects that I designed and needed to print once upon a time. These now serve as real-world examples to me.
 polytest        | Models that are aimed at testing as many things as possible in one short print. These prints are not meant for slicing but for printing.
