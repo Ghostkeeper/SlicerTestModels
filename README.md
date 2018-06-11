@@ -26,6 +26,7 @@ polytest        | Models that are aimed at testing as many things as possible in
 skin            | Models with various shapes of skin, layers of skin or thicknesses of skin, to test skin generation. With skin, I mean the part at the top and bottom of the model.
 slicing         | 3D models that test the slicing stage of a slicer, where it takes cross-sections of the model.
 speed           | Models for real-world printing tests to see how well the printer behaves at high printing velocities.
+spiralise       | Testing models for the "spiralize" feature of Cura and similar features of other slicers. These are aimed at printing with one wall without much overhang. Due to the spiralising, the z-seam should be gone.
 support         | These models have some structures that need to be supported in order to print well. Tests support generation under various constraints, such as when it has to rest on the model, avoid the model, not go outside of the build plate, etc.
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 
