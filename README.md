@@ -20,6 +20,7 @@ infill          | Models containing various shapes for infill to print in. These
 multi_extrusion | Models that are intended to print with multiple extruders. Tests adhesion between adjacent parts and nozzle switching strategies.
 my              | Personal projects that I designed and needed to print once upon a time. These now serve as real-world examples to me.
 obj             | The Wavefront OBJ file format. Tests if we can load these files properly.
+planning        | Models with lots of different parts to test whether they are printed in a logical order and whether finding that order is in any way performant. Warning: Slicing these may take a long time with some slicers.
 polytest        | Models that are aimed at testing as many things as possible in one short print. These prints are not meant for slicing but for printing.
 slicing         | 3D models that test the slicing stage of a slicer, where it takes cross-sections of the model.
 speed           | Models for real-world printing tests to see how well the printer behaves at high printing velocities.
