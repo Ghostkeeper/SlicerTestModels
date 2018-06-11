@@ -12,8 +12,9 @@ Category        | Description
 adhesion        | Testing print bed adhesion features, such as brim, skirt and raft.
 basic           | Generic shapes, mostly geometric. These models may be used to test simple stuff when you just need a bit of infill, or to test front-end features such as linear transformations.
 bridging        | Models featuring lots of overhangs. The overhangs may get bridged properly if the slicer does a good job to orient the skin lines above the bridge properly.
-broken          | Model files that contain faults. They may have weird file names, syntax mistakes, be corrupted or have non-manifold surfaces. They may not be watertight or have extra geometry inside them. This is intended to test the robustness of the slicer.
+broken          | Model files that contain faults. They may have syntax mistakes, be corrupted or have non-manifold surfaces. They may not be watertight or have extra geometry inside them. This is intended to test the robustness of the slicer.
 combing         | Aimed at testing how well the nozzle avoids going through walls unnecessary. This has models both to test collision avoidance (avoiding going from outside to inside) and maze-like internal shapes (avoiding going from inside to outside).
+filenames       | Files with strange file names. The file names have special characters or are located in folders that have special characters.
 multi_extrusion | Models that are intended to print with multiple extruders. Tests adhesion between adjacent parts and nozzle switching strategies.
 my              | Personal projects that I designed and needed to print once upon a time. These now serve as real-world examples to me.
 polytest        | Models that are aimed at testing as many things as possible in one short print. These prints are not meant for slicing but for printing.
