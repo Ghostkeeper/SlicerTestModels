@@ -1,36 +1,28 @@
-$fa = 1;
-$fs = 0.1;
-
-module yin(radius, height) {
-	difference() {
-		union() {	
-			difference() {
-				cylinder(r=radius, h=height);
-				translate([-radius, 0, -1]) {
-					cube([radius * 2, radius, height + 2]);
-				}
-				translate([radius / 2, 0, -1]) {
-					cylinder(r=radius / 2, h=height + 2);
-				}
-			}
-			translate([-radius / 2, 0, 0]) {
-				cylinder(r=radius / 2, h=height);
-			}
-			translate([radius / 2, 0, 0]) {
-				cylinder(r=radius / 8, h=height);
-			}
-		}
-		translate([-radius / 2, 0, -1]) {
-			cylinder(r=radius / 8, h=height + 2);
-		}
-	}
+module yinyang(height,radius,dotRadius,fn) {
+    difference() {
+        union() {
+            difference() {
+                cylinder(h=height,r=radius,$fn=fn); //Basic outer shape.
+                translate([-radius,0,0]) {
+                    cube([radius * 2,radius,height]); //Cut half of the cylinder away.
+                }
+                translate([-radius / 2,0,0]) {
+                    cylinder(h=height,r=radius / 2,$fn=fn); //Circle cut out to produce the thin tail.
+                }
+            }
+            translate([radius / 2,0,0]) {
+                cylinder(h = height,r = radius / 2,$fn=fn); //Circle added to produce the round head.
+            }
+            translate([-radius / 2,0,0]) {
+                cylinder(h = height,r = dotRadius,$fn=fn);
+            }
+        }
+        translate([radius / 2,0,0]) {
+            cylinder(h = height,r = dotRadius,$fn=fn);
+        }
+    }
 }
 
-color([0.9, 0.9, 0.9]) {
-	yin(20, 5);
-}
-color([0.2, 0.2, 0.2]) {
-	rotate([0, 0, 180]) {
-		yin(20, 5); //Yang.
-	}
+rotate([0,0,180]) {
+    yinyang(height=5,radius=25,dotRadius=3,fn=100);
 }
