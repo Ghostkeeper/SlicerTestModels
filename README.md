@@ -8,6 +8,7 @@ This repository contains the following categories of models:
 
 Category        | Description
 --------------- | -----------
+3mf             | The 3MF file format. Tests if we can load these files properly.
 basic           | Generic shapes, mostly geometric. These models may be used to test simple stuff when you just need a bit of infill, or to test front-end features such as linear transformations.
 bridging        | Models featuring lots of overhangs. The overhangs may get bridged properly if the slicer does a good job to orient the skin lines above the bridge properly.
 broken          | Model files that contain faults. They may have weird file names, syntax mistakes, be corrupted or have non-manifold surfaces. They may not be watertight or have extra geometry inside them. This is intended to test the robustness of the slicer.
