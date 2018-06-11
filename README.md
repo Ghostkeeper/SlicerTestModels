@@ -1,7 +1,9 @@
+Slicer Test Models
+==================
 This is a collection of test models that I've been using to test slicers and 3D printers with, in particular [Cura](https://github.com/Ultimaker/Cura). It contains models aimed at testing specific features of a slicer, as well as some basic models for testing simple things and some personal projects that serve as real-world examples.
 
 Categories
-==========
+----------
 This repository contains the following categories of models:
 
 Category        | Description
@@ -16,5 +18,5 @@ support         | These models have some structures that need to be supported in
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 
 License
-=======
+-------
 These models are all in the public domain, under the CC0 Creative Commons license. Please use and share these models. For details, see [the license](https://github.com/Ghostkeeper/SlicerTestModels/blob/master/LICENSE.md).
