@@ -14,6 +14,7 @@ basic           | Generic shapes, mostly geometric. These models may be used to 
 bridging        | Models featuring lots of overhangs. The overhangs may get bridged properly if the slicer does a good job to orient the skin lines above the bridge properly.
 broken          | Model files that contain faults. They may have syntax mistakes, be corrupted or have non-manifold surfaces. They may not be watertight or have extra geometry inside them. This is intended to test the robustness of the slicer.
 combing         | Aimed at testing how well the nozzle avoids going through walls unnecessary. This has models both to test collision avoidance (avoiding going from outside to inside) and maze-like internal shapes (avoiding going from inside to outside).
+cura_projects   | Cura project files (based on 3MF). These are meant to test Cura's project file reading, version upgrade and to see whether the profiles were preserved all right.
 filenames       | Files with strange file names. The file names have special characters or are located in folders that have special characters.
 flow            | Real-world tests to see if the printer regulates its flow well.
 infill          | Models containing various shapes for infill to print in. These may contain thin pieces or just various shapes that test the order in which lines are printed.
