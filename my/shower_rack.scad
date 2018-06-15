@@ -1,8 +1,8 @@
 //Rack for my shampoo, razor blade, etc. in the bath room.
 
 //Global settings.
-$fs = 1;
-$fa = 4;
+$fs = 0.5;
+$fa = 1;
 
 //Measurements!
 shampoo_width = 90.7; //X
