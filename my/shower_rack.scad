@@ -58,10 +58,12 @@ difference() {
 		}
 
 		//Pod for tooth paste.
-		cube([shampoo_width / 2 + 10 + 5, shampoo_width / 2 + 10, 10]);
 		difference() {
-			translate([shampoo_width / 2 + 10 + 5, shampoo_width / 4 + 5, 0]) {
-				cylinder(r=shampoo_width / 4 + 5, h=10);
+			union() {
+				cube([shampoo_width / 2 + 10 + 5, shampoo_width / 2 + 10, 10]);
+				translate([shampoo_width / 2 + 10 + 5, shampoo_width / 4 + 5, 0]) {
+					cylinder(r=shampoo_width / 4 + 5, h=10);
+				}
 			}
 			translate([shampoo_width / 2 + 10 + tooth_paste_radius, shampoo_width / 4 + 5, 0]) {
 				cylinder(r=tooth_paste_radius, h=10);
