@@ -12,6 +12,7 @@ shampoo_end_width = 61.7;
 shampoo_end_depth = 37;
 razor_handle_radius = 9.5 / 2;
 tooth_paste_radius = 17;
+tooth_brush_radius = 11.7 / 2;
 
 module shampoo() {
 	a = acos(shampoo_end_width / shampoo_width); //Angle towards top corner of end cap.
@@ -53,6 +54,17 @@ difference() {
 				cylinder(r=razor_handle_radius + 0.3, h=10);
 				translate([-razor_handle_radius - 5, -razor_handle_radius - 0.3, 0]) {
 					cube([razor_handle_radius + 5, (razor_handle_radius + 0.3) * 2, 10]);
+				}
+			}
+		}
+
+		//Hook for tooth brush.
+		translate([shampoo_width / 2 + 3, shampoo_depth / 4, shampoo_height * 3 / 4]) {
+			difference() {
+				cylinder(r=tooth_brush_radius + 5, h=10);
+				cylinder(r=tooth_brush_radius + 0.2, h=10);
+				translate([0, -tooth_brush_radius - 0.2, 0]) {
+					cube([tooth_brush_radius + 5, (tooth_brush_radius + 0.2) * 2, 10]);
 				}
 			}
 		}
