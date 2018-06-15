@@ -2,7 +2,7 @@
 
 //Global settings.
 $fs = 1;
-$fa = 2;
+$fa = 4;
 
 module shampoo() {
 	//Measurements!
@@ -16,12 +16,12 @@ module shampoo() {
 	radius = height / 2 / sin(a);
 
 	intersection() {
-		translate([width / 2, 0, height / 2]) {
+		translate([0, 0, height / 2]) {
 			scale([width / 2 / radius, depth / 2 / radius, 1]) {
 				sphere(r = radius);
 			}
 		}
-		translate([0, -end_depth / 2, 0]) {
+		translate([-width / 2, -end_depth / 2, 0]) {
 			cube([width, end_depth, height]);
 		}
 	}
