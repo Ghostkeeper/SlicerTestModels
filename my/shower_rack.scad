@@ -27,4 +27,22 @@ module shampoo() {
 	}
 }
 
-shampoo();
+
+
+difference() {
+	hull() {
+		minkowski() {
+			shampoo();
+			scale([1, 1, 0]) {
+				cylinder(r=5, height=1);
+			}
+		}
+		scale([1, 1, 0]) {
+			cylinder(r=55, height=1);
+		}
+	}
+	translate([-55, -55, 0]) {
+		cube([110, 55, 173]);
+	}
+	shampoo();
+}
