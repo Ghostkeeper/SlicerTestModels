@@ -1,5 +1,9 @@
 //Rack for my shampoo, razor blade, etc. in the bath room.
 
+//Global settings.
+$fs = 1;
+$fa = 2;
+
 module shampoo() {
 	//Measurements!
 	width = 90.7; //X
