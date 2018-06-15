@@ -47,11 +47,11 @@ difference() {
 		}
 
 		//Hook for razor.
-		translate([shampoo_width / 2 + 3, shampoo_depth / 4, shampoo_height * 3 / 4]) {
+		translate([-shampoo_width / 2 - 3, shampoo_depth / 4, shampoo_height * 3 / 4]) {
 			difference() {
 				cylinder(r=razor_handle_radius + 5, h=10);
 				cylinder(r=razor_handle_radius + 0.3, h=10);
-				translate([0, -razor_handle_radius - 0.3, 0]) {
+				translate([-razor_handle_radius - 5, -razor_handle_radius - 0.3, 0]) {
 					cube([razor_handle_radius + 5, (razor_handle_radius + 0.3) * 2, 10]);
 				}
 			}
