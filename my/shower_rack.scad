@@ -4,45 +4,48 @@
 $fs = 1;
 $fa = 4;
 
-module shampoo() {
-	//Measurements!
-	width = 90.7; //X
-	depth = 60; //Y
-	height = 173; //Z
-	end_width = 61.7;
-	end_depth = 37;
+//Measurements!
+shampoo_width = 90.7; //X
+shampoo_depth = 60; //Y
+shampoo_height = 173; //Z
+shampoo_end_width = 61.7;
+shampoo_end_depth = 37;
+razor_handle_radius = 9.5 / 2;
 
-	a = acos(end_width / width); //Angle towards top corner of end cap.
-	radius = height / 2 / sin(a);
+module shampoo() {
+	a = acos(shampoo_end_width / shampoo_width); //Angle towards top corner of end cap.
+	radius = shampoo_height / 2 / sin(a);
 
 	intersection() {
-		translate([0, 0, height / 2]) {
-			scale([width / 2 / radius, depth / 2 / radius, 1]) {
+		translate([0, 0, shampoo_height / 2]) {
+			scale([shampoo_width / 2 / radius, shampoo_depth / 2 / radius, 1]) {
 				sphere(r = radius);
 			}
 		}
-		translate([-width / 2, -end_depth / 2, 0]) {
-			cube([width, end_depth, height]);
+		translate([-shampoo_width / 2, -shampoo_end_depth / 2, 0]) {
+			cube([shampoo_width, shampoo_end_depth, shampoo_height]);
 		}
 	}
 }
 
 
-
+//Main rack.
 difference() {
-	hull() {
-		minkowski() {
-			shampoo();
+	union() {
+		hull() {
+			minkowski() {
+				shampoo();
+				scale([1, 1, 0]) {
+					cylinder(r=5, height=1);
+				}
+			}
 			scale([1, 1, 0]) {
-				cylinder(r=5, height=1);
+				cylinder(r=shampoo_width / 2 + 10, height=1);
 			}
 		}
-		scale([1, 1, 0]) {
-			cylinder(r=55, height=1);
-		}
 	}
-	translate([-55, -55, 0]) {
-		cube([110, 55, 173]);
+	translate([-shampoo_width / 2 - 10, -shampoo_width / 2 - 10, 0]) {
+		cube([shampoo_width + 20, shampoo_width / 2 + 10, shampoo_height]);
 	}
 	shampoo();
 }
