@@ -5,7 +5,7 @@ $fs = 0.5;
 $fa = 1;
 
 //Measurements!
-shampoo_width = 90.7; //X
+shampoo_width = 91.2; //X
 shampoo_depth = 60; //Y
 shampoo_height = 173; //Z
 shampoo_end_width = 61.7;
