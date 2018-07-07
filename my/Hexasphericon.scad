@@ -1,5 +1,5 @@
 radius = 20;
-$fn = 60;
+$fn = 360;
 
 module hexacone() {
 	cylinder(r1=radius, r2=cos(60) * radius, h=sin(60) * radius);
