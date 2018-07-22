@@ -1,0 +1,7 @@
+#Compiled SCAD models.
+*.stl
+
+#Except the ones in folders where the file format itself matters.
+!stl/*.stl
+!broken/*.stl
+!filenames/*.stl
