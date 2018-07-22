@@ -9,7 +9,8 @@ $fs = 0.1;
 //Measurements.
 diameter = 54;
 cap_height = 15;
-stick_diameter = 14;
+stick_diameter = 15;
+jar_total_height = 100; //Actually 93.5 but allow some play.
 
 //Calculations.
 radius = diameter / 2;
@@ -17,20 +18,23 @@ stick_radius = stick_diameter / 2;
 connector_dist = radius + bracket_width - thickness;
 
 //Base rim.
-difference() {
-	union() {
-		translate([-radius - bracket_width, 0, 0]) {
-			cube([(radius + bracket_width) * 2, radius + bracket_width, thickness]);
+module rim() {
+	difference() {
+		union() {
+			translate([-radius - bracket_width, 0, 0]) {
+				cube([(radius + bracket_width) * 2, radius + bracket_width, thickness]);
+			}
+			cylinder(h=thickness, r=radius + bracket_width);
 		}
-		cylinder(h=thickness, r=radius + bracket_width);
-	}
-	union() {
-		cylinder(h=thickness, r=radius);
-		translate([-radius, -radius - bracket_width, 0]) {
-			cube([radius * 2, radius + bracket_width, thickness]);
+		union() {
+			cylinder(h=thickness, r=radius);
+			translate([-radius, -radius - bracket_width, 0]) {
+				cube([radius * 2, radius + bracket_width, thickness]);
+			}
 		}
 	}
 }
+rim();
 
 //Connector.
 translate([-radius - bracket_width, radius + bracket_width, 0]) {
@@ -49,7 +53,7 @@ translate([-radius - bracket_width, radius + bracket_width, 0]) {
 module hook() {
 	translate([0, 0, stick_diameter / 2 + thickness]) {
 		rotate([0, 90, 0]) {
-			rotate_extrude(angle = 210) {
+			rotate_extrude(angle = 360) {
 				translate([stick_diameter / 2, 0]) {
 					square([thickness, hook_width]);
 				}
