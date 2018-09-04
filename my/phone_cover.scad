@@ -3,9 +3,10 @@
 //Measurements of Samsung Galaxy 7 Edge
 phone_width = 72.6;
 phone_height = 150.9;
-phone_thickness = 8.0;
+phone_depth = 8.0;
 
 phone_roundness_h = 6.6; //How far in the X direction the roundness extends over the screen.
+phone_roundness_v_radius = 7.0; //The vertical roundness is not exactly round. Eccentricity!
 phone_roundness_corner = 10.5; //Radius of the four rounded corners.
 
 button_volumes_y = 97.0;
@@ -24,3 +25,71 @@ charger_x = phone_width / 2; //Position of centre!
 charger_width = 12.0; //A bit more than necessary for large chargers.
 microphone_x = 45.0;
 microphone_width = 12.5;
+
+//Settings
+thickness = 0.5;
+$fs = 2; //Low-res to debug with.
+$fa = 4;
+
+//Implementation.
+
+module body() {
+	intersection() {
+		union() { //Main body with rounded corners left and right.
+			translate([phone_roundness_h, 0, 0]) {
+				cube([phone_width - phone_roundness_h * 2, phone_height, phone_depth]);
+			}
+			translate([phone_roundness_h, 0, phone_depth / 2]) {
+				scale([1, 1, (phone_depth / 2) / phone_roundness_h]) {
+					rotate([-90, 0, 0]) {
+						cylinder(r=phone_roundness_h, h=phone_height);
+					}
+				}
+			}
+			translate([phone_width - phone_roundness_h, 0, phone_depth / 2]) {
+				scale([1, 1, (phone_depth / 2) / phone_roundness_h]) {
+					rotate([-90, 0, 0]) {
+						cylinder(r=phone_roundness_h, h=phone_height);
+					}
+				}
+			}
+		}
+		union() { //Filter to cause vertical roundness.
+			translate([0, phone_roundness_v_radius, phone_depth / 2]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=phone_roundness_v_radius, h=phone_width);
+				}
+			}
+			translate([0, phone_height - phone_roundness_v_radius, phone_depth / 2]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=phone_roundness_v_radius, h=phone_width);
+				}
+			}
+			translate([0, phone_roundness_v_radius, phone_depth / 2 - phone_roundness_v_radius]) {
+				cube([phone_width, phone_height - phone_roundness_v_radius * 2, phone_roundness_v_radius * 2]);
+			}
+		}
+		union() { //Filter to cause four rounded corners.
+			translate([phone_roundness_corner, phone_roundness_corner, 0]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth);
+			}
+			translate([phone_width - phone_roundness_corner, phone_roundness_corner, 0]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth);
+			}
+			translate([phone_width - phone_roundness_corner, phone_height - phone_roundness_corner, 0]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth);
+			}
+			translate([phone_roundness_corner, phone_height - phone_roundness_corner, 0]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth);
+			}
+			translate([phone_roundness_corner, 0, 0]) {
+				cube([phone_width - phone_roundness_corner * 2, phone_height, phone_depth]);
+			}
+			translate([0, phone_roundness_corner, 0]) {
+				cube([phone_width, phone_height - phone_roundness_corner * 2, phone_depth]);
+			}
+		}
+	}
+}
+
+body();
