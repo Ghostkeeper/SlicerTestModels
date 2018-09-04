@@ -30,10 +30,16 @@ microphone_x = 45.0;
 microphone_width = 12.5;
 microphone_depth = 5.0;
 
+jack_sleeve_diameter = 10.4; //Allow 0.4mm more for inaccuracy in printing.
+jack_sleeve_length = 22.0; //How long the tube for the jack is.
+
 //Settings
 thickness = 0.7; //Align to line width for best print results.
 undercut = 0.2; //How far below the phone's surface the mesh will stay.
 max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barring undercut).
+jack_sleeve_overhang = 3; //How far the sleeve covers the phone. Needs to be at least so that it covers the v_radius component!
+jack_sleeve_diameter2 = 15; //Make it thicker at the base for strength.
+jack_sleeve_endstop_length = 3; //Make the sleeve slope back down to disappear in the object.
 $fs = 2; //Low-res to debug with.
 $fa = 4;
 
@@ -99,15 +105,40 @@ module body() {
 
 //Render the main shell.
 difference() {
-	minkowski() {
-		body();
-		sphere(r=thickness);
+	union() {
+		minkowski() {
+			body();
+			sphere(r=thickness);
+		}
+
+		//Jack sleeve for reinforcement.
+		translate([jack_x, -thickness - jack_sleeve_length, phone_depth / 2]) {
+			rotate([-90, 0, 0]) {
+				difference() {
+					union() {
+						cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+						translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
+							cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+						}
+					}
+					cylinder(r=jack_sleeve_diameter / 2, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+					translate([-jack_sleeve_diameter2 / 2 - thickness, phone_depth / 2 + thickness, 0]) {
+						cube([jack_sleeve_diameter2, jack_sleeve_diameter2, jack_sleeve_length + jack_sleeve_endstop_length * 2 + thickness]);
+					}
+				}
+			}
+		}
 	}
-	body();
-	translate([-thickness, -thickness, phone_depth - undercut]) {
-		cube([phone_width + thickness * 2, phone_height + thickness * 2, thickness + undercut]);
+	body(); //Hollow out!
+
+	//Remove top cover.
+	inset = min(sqrt(1 - pow((phone_depth / 2 - undercut) / phone_roundness_v_radius, 2)) * phone_roundness_v_radius / (phone_depth / 2 - undercut), max_overhang); //cos(sin-1(h)) = sqrt(1 - h^2)
+	translate([-thickness + inset, -thickness + inset, phone_depth - undercut]) {
+		cube([phone_width + thickness * 2 - inset * 2, phone_height + thickness * 2 - inset * 2, thickness + undercut]);
 	}
-	intersection() { //Apply maximum overhang.
+
+	//Apply maximum overhang.
+	intersection() {
 		union() {
 			translate([phone_roundness_corner, phone_roundness_corner, phone_depth / 2]) {
 				cylinder(r=phone_roundness_corner, h=phone_depth / 2);
