@@ -11,8 +11,10 @@ phone_roundness_corner = 10.5; //Radius of the four rounded corners.
 
 button_volumes_y = 97.0;
 button_volumes_height = 30.0;
+button_volumes_depth = 4.0;
 button_power_y = 88.0;
 button_power_height = 17.5;
+button_power_depth = 4.0;
 
 camera_x = 18.5;
 camera_y = 117.0;
@@ -21,10 +23,12 @@ camera_height = 15.2;
 
 jack_x = 19.2; //Position of centre!
 jack_width = 5.0;
-charger_x = phone_width / 2; //Position of centre!
-charger_width = 12.0; //A bit more than necessary for large chargers.
+usb_x = phone_width / 2; //Position of centre!
+usb_width = 12.0; //A bit more than necessary for large chargers.
+usb_depth = 6.5;
 microphone_x = 45.0;
 microphone_width = 12.5;
+microphone_depth = 5.0;
 
 //Settings
 thickness = 0.7; //Align to line width for best print results.
@@ -101,5 +105,33 @@ difference() {
 	body();
 	translate([-thickness, -thickness, phone_depth - undercut]) {
 		cube([phone_width + thickness * 2, phone_height + thickness * 2, thickness + undercut]);
+	}
+
+	//Subtract holes for buttons, peripherals, etc.
+	//Volume buttons.
+	translate([-thickness, button_volumes_y, phone_depth / 2 - button_volumes_depth / 2]) {
+		cube([thickness + phone_roundness_h, button_volumes_height, button_volumes_depth]);
+	}
+	//Power button.
+	translate([phone_width - phone_roundness_h, button_power_y, phone_depth / 2 - button_power_depth / 2]) {
+		cube([thickness + phone_roundness_h, button_power_height, button_power_depth]);
+	}
+	//Camera.
+	translate([camera_x, camera_y, -thickness]) {
+		cube([camera_width, camera_height, thickness]);
+	}
+	//Audio jack.
+	translate([jack_x, -thickness, phone_depth / 2]) {
+		rotate([-90, 0, 0]) {
+			cylinder(r=jack_width / 2, h=phone_roundness_v_radius);
+		}
+	}
+	//USB-micro jack.
+	translate([usb_x - usb_width / 2, -thickness, phone_depth / 2 - usb_depth / 2]) {
+		cube([usb_width, phone_roundness_v_radius, usb_depth]);
+	}
+	//Microphone.
+	translate([microphone_x, -thickness, phone_depth / 2 - microphone_depth / 2]) {
+		cube([microphone_width, phone_roundness_v_radius, microphone_depth]);
 	}
 }
