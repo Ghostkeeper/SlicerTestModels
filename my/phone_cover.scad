@@ -27,12 +27,12 @@ microphone_x = 45.0;
 microphone_width = 12.5;
 
 //Settings
-thickness = 0.5;
+thickness = 0.7; //Align to line width for best print results.
+undercut = 0.2; //How far below the phone's surface the mesh will stay.
 $fs = 2; //Low-res to debug with.
 $fa = 4;
 
 //Implementation.
-
 module body() {
 	intersection() {
 		union() { //Main body with rounded corners left and right.
@@ -92,4 +92,14 @@ module body() {
 	}
 }
 
-body();
+//Render the main shell.
+difference() {
+	minkowski() {
+		body();
+		sphere(r=thickness);
+	}
+	body();
+	translate([-thickness, -thickness, phone_depth - undercut]) {
+		cube([phone_width + thickness * 2, phone_height + thickness * 2, thickness + undercut]);
+	}
+}
