@@ -33,6 +33,7 @@ microphone_depth = 5.0;
 //Settings
 thickness = 0.7; //Align to line width for best print results.
 undercut = 0.2; //How far below the phone's surface the mesh will stay.
+max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barring undercut).
 $fs = 2; //Low-res to debug with.
 $fa = 4;
 
@@ -105,6 +106,31 @@ difference() {
 	body();
 	translate([-thickness, -thickness, phone_depth - undercut]) {
 		cube([phone_width + thickness * 2, phone_height + thickness * 2, thickness + undercut]);
+	}
+	intersection() { //Apply maximum overhang.
+		union() {
+			translate([phone_roundness_corner, phone_roundness_corner, phone_depth / 2]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth / 2);
+			}
+			translate([phone_width - phone_roundness_corner, phone_roundness_corner, phone_depth / 2]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth / 2);
+			}
+			translate([phone_width - phone_roundness_corner, phone_height - phone_roundness_corner, phone_depth / 2]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth / 2);
+			}
+			translate([phone_roundness_corner, phone_height - phone_roundness_corner, phone_depth / 2]) {
+				cylinder(r=phone_roundness_corner, h=phone_depth / 2);
+			}
+			translate([phone_roundness_corner, 0, phone_depth / 2]) {
+				cube([phone_width - phone_roundness_corner * 2, phone_height, phone_depth / 2]);
+			}
+			translate([0, phone_roundness_corner, phone_depth / 2]) {
+				cube([phone_width, phone_height - phone_roundness_corner * 2, phone_depth / 2]);
+			}
+		}
+		translate([max_overhang, max_overhang, phone_depth / 2]) {
+			cube([phone_width - max_overhang * 2, phone_height - max_overhang * 2, phone_depth / 2]);
+		}
 	}
 
 	//Subtract holes for buttons, peripherals, etc.
