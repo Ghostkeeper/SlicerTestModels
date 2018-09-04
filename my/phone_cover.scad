@@ -40,8 +40,8 @@ max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barr
 jack_sleeve_overhang = 3; //How far the sleeve covers the phone. Needs to be at least so that it covers the v_radius component!
 jack_sleeve_diameter2 = 15; //Make it thicker at the base for strength.
 jack_sleeve_endstop_length = 3; //Make the sleeve slope back down to disappear in the object.
-$fs = 2; //Low-res to debug with.
-$fa = 4;
+$fs = 0.5;
+$fa = 1;
 
 //Implementation.
 module body() {
