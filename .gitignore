@@ -1,6 +1,12 @@
 #Compiled SCAD models.
 *.stl
 
+#Slice results. I like to save a few of them here.
+*.gcode
+*.gcode.gz
+*.ufp
+*.x3g
+
 #Except the ones in folders where the file format itself matters.
 !stl/*.stl
 !broken/*.stl
