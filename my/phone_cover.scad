@@ -9,7 +9,7 @@ phone_roundness_h = 6.6; //How far in the X direction the roundness extends over
 phone_roundness_v_radius = 7.0; //The vertical roundness is not exactly round. Eccentricity!
 phone_roundness_corner = 10.5; //Radius of the four rounded corners.
 
-button_volumes_y = 97.0;
+button_volumes_y = 98.5;
 button_volumes_height = 30.0;
 button_volumes_depth = 4.0;
 button_power_y = 88.0;
@@ -17,17 +17,17 @@ button_power_height = 17.5;
 button_power_depth = 4.0;
 
 camera_x = 18.5;
-camera_y = 117.0;
+camera_y = 118.0;
 camera_width = 25.1;
 camera_height = 15.2;
 
 jack_x = 19.2; //Position of centre!
-jack_width = 5.0;
+jack_width = 10.4;
 usb_x = phone_width / 2; //Position of centre!
 usb_width = 12.0; //A bit more than necessary for large chargers.
 usb_depth = 6.5;
 microphone_x = 45.0;
-microphone_width = 12.5;
+microphone_width = 15.0;
 microphone_depth = 5.0;
 
 jack_sleeve_diameter = 10.4; //Allow 0.4mm more for inaccuracy in printing.
@@ -180,7 +180,7 @@ difference() {
 	//Audio jack.
 	translate([jack_x, -thickness, phone_depth / 2]) {
 		rotate([-90, 0, 0]) {
-			cylinder(r=jack_width / 2, h=phone_roundness_v_radius);
+			cylinder(r=jack_width / 2, h=inset + 0.4);
 		}
 	}
 	//USB-micro jack.
