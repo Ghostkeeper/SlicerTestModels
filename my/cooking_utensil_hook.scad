@@ -2,7 +2,7 @@ $fn = 150;
 
 screw_outer_radius = 3.7;
 screw_shaft_radius = 1.5;
-pin_radius = 3.2;
+pin_radius = 4.5;
 
 difference() {
 	hull() {
