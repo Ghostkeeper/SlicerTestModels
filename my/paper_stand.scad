@@ -1,6 +1,6 @@
 paper_thickness = 0.6;
 thickness = 1;
-paper_height = 143;
+paper_height = 214;
 
 $fs=0.4;
 $fa=1;
@@ -17,6 +17,6 @@ difference() {
 
 translate([-thickness, 0, 0]) {
 	rotate([0, 0, -20]) {
-		cube([thickness * 2, 70, 5]);
+		cube([thickness * 2, 80, 5]);
 	}
 }
