@@ -40,7 +40,7 @@ difference() {
 			cylinder(r = screw_radius, h = screw_depth);
 		}
 	}
-	translate([total_length, screw_depth, screw_position + thickness]) {
+	translate([total_length, screw_depth, screw_position + ledge_thickness]) {
 		rotate([90, 0, 0]) {
 			cylinder(r = screw_radius, h = screw_depth);
 		}
