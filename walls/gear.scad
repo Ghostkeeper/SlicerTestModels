@@ -3,7 +3,7 @@ module gear(height, radius, teeth_depth, teeth=30) {
 	for(tooth = [0:teeth]) {
 		rotate([0, 0, tooth * 360 / teeth]) {
 			linear_extrude(height=height) {
-				polygon(points=[[radius, 0],[cos(360 / teeth) * radius, sin(360 / teeth) * radius], [cos(180 / teeth) * (radius + teeth_depth), sin(180 / teeth) * (radius + teeth_depth)]], convexity=1);
+				polygon(points=[[radius, 0], [cos(360 / teeth) * radius, sin(360 / teeth) * radius], [cos(180 / teeth) * (radius + teeth_depth), sin(180 / teeth) * (radius + teeth_depth)]], convexity=1);
 			}
 		}
 	}
