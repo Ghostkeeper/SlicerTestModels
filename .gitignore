@@ -6,6 +6,8 @@
 *.gcode.gz
 *.ufp
 *.x3g
+print_history/*
+test.*
 
 #Except the ones in folders where the file format itself matters.
 !stl/*.stl
