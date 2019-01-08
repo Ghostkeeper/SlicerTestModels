@@ -34,7 +34,7 @@ jack_sleeve_diameter = 10.4; //Allow 0.4mm more for inaccuracy in printing.
 jack_sleeve_length = 22.0; //How long the tube for the jack is.
 
 //Settings
-thickness = 0.7; //Align to line width for best print results.
+thickness = 1.05; //Align to line width for best print results.
 undercut = 0.2; //How far below the phone's surface the mesh will stay.
 max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barring undercut).
 jack_sleeve_overhang = 3; //How far the sleeve covers the phone. Needs to be at least so that it covers the v_radius component!
