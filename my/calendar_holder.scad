@@ -1,4 +1,4 @@
-screw_distance = 17 - 1.5;
+screw_distance = 14;
 screw_radius = 1.5;
 calendar_radius = 15.2; //Has 0.2mm play!
 
@@ -39,14 +39,20 @@ translate([width - thickness, 0, thickness]) {
 
 //Resting plate.
 translate([width / 2 - calendar_radius - thickness, height, 0]) {
-	cube([(calendar_radius + thickness) * 2, thickness, calendar_radius + thickness]);
-	translate([calendar_radius + thickness, 0, calendar_radius + thickness]) {
-		rotate([-90, 0, 0]) {
-			difference() {
-				cylinder(r=calendar_radius + thickness, h=thickness * 2);
-				translate([0, 0, thickness]) {
-					cylinder(r=calendar_radius, h=thickness);
+	difference() {
+		union() {
+			cube([(calendar_radius + thickness) * 2, thickness * 2, calendar_radius + thickness]);
+			translate([calendar_radius + thickness, 0, calendar_radius + thickness]) {
+				rotate([-90, 0, 0]) {
+					difference() {
+						cylinder(r=calendar_radius + thickness, h=thickness * 2);
+					}
 				}
+			}
+		}
+		translate([calendar_radius + thickness, thickness, calendar_radius + thickness]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r=calendar_radius, h=thickness + 1);
 			}
 		}
 	}

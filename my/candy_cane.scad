@@ -1,7 +1,7 @@
 $fs = 0.1;
 $fa = 1;
 
-extruder = 1;
+extruder = 0;
 
 module candycane() {
 	linear_extrude(height = 100) {

@@ -19,9 +19,11 @@ module face() {
 	cylinder(h = height, r = radius * 0.07, $fa = fa, $fs = fs);
 }
 
-//difference() {
-//	cylinder(h = height, r = radius, $fa = fa, $fs = fs); //Head.
-//	face();
-//}
+//Uncomment to create the head without the face.
+difference() {
+	cylinder(h = height, r = radius, $fa = fa, $fs = fs); //Head.
+	face();
+}
 
-face();
+//Uncomment to create the face.
+//face();

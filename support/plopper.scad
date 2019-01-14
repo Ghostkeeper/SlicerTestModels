@@ -1,4 +1,4 @@
-$fn=60;
+$fn = 60;
 
 difference() {
 	sphere(r=20);
