@@ -13,3 +13,9 @@ test.*
 !stl/*.stl
 !broken/*.stl
 !filenames/*.stl
+
+#Except the ones in those folders that use OpenSCAD as their source.
+broken/cube_0.06.stl
+broken/non_manifold.stl
+broken/small_z_gap.stl
+broken/tiny_sphere.stl
