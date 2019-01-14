@@ -1,6 +1,9 @@
 #Compiled SCAD models.
 *.stl
 
+#Files from other people. They aren't mine to publish but I like to keep them in the same folder.
+other_people
+
 #Slice results. I like to save a few of them here.
 *.gcode
 *.gcode.gz
