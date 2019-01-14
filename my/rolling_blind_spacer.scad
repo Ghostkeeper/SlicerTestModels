@@ -13,7 +13,7 @@ bead_wall_thickness = 1;
 screw_wall_thickness = 2;
 reel_joint_thickness = 1;
 fa = 1;
-fs = 0.1; //TODO: Make 0.1 for final compilation!
+fs = 0.1;
 
 //Computed values.
 thickness_screws = horizontal_offset + screw_radius * 2 + screw_edge_spacing * 2;

@@ -9,20 +9,20 @@ module tile() {
 
 module bee() {
     //Main body.
-    translate([-tileRadius * 0.1,0,0]) {
-        scale([2,1,0.5]) { //Body.
+    translate([-tileRadius * 0.1, 0, 0]) {
+        scale([2, 1, 0.5]) { //Body.
             sphere(r = tileRadius * 0.15);
         }
-        translate([tileRadius * 0.06,0,0]) { //Subtle ribbing.
-            rotate([0,-10,0]) {
-                scale([1.5,1,0.5]) {
+        translate([tileRadius * 0.06, 0, 0]) { //Subtle ribbing.
+            rotate([0, -10, 0]) {
+                scale([1.5, 1, 0.5]) {
                     sphere(r = tileRadius * 0.15);
                 }
             }
         }
-        translate([tileRadius * -0.06,0,0]) { //Subtle ribbing.
-            rotate([0,-5,0]) {
-                scale([1.5,1,0.5]) {
+        translate([tileRadius * -0.06, 0, 0]) { //Subtle ribbing.
+            rotate([0, -5, 0]) {
+                scale([1.5, 1, 0.5]) {
                     sphere(r = tileRadius * 0.15);
                 }
             }
@@ -30,18 +30,18 @@ module bee() {
     }
 
     //Head.
-    translate([tileRadius * 0.2,0,0]) {
-        scale([0.8,1,0.5]) { //Main head shape.
+    translate([tileRadius * 0.2, 0, 0]) {
+        scale([0.8, 1, 0.5]) { //Main head shape.
             sphere(r = tileRadius * 0.1);
         }
-        rotate([0,0,20]) { //Left antenna.
-            translate([tileRadius * 0.075,0,0]) {
+        rotate([0, 0, 20]) { //Left antenna.
+            translate([tileRadius * 0.075, 0, 0]) {
                 beeAntenna(5);
             }
         }
-        mirror([0,1,0]) { //Right antenna.
-            rotate([0,0,20]) {
-                translate([tileRadius * 0.075,0,0]) {
+        mirror([0, 1, 0]) { //Right antenna.
+            rotate([0, 0, 20]) {
+                translate([tileRadius * 0.075, 0, 0]) {
                     beeAntenna(5);
                 }
             }
@@ -52,11 +52,11 @@ module bee() {
 module beeAntenna(piecesLeft) {
     //This uses a recursive definition to count piecesLeft down to 0.
     if(piecesLeft >= 1) {
-        rotate([0,90,0]) {
-            cylinder(r = tileRadius * 0.01,h = tileRadius * 0.04);
+        rotate([0, 90, 0]) {
+            cylinder(r = tileRadius * 0.01, h = tileRadius * 0.04);
         }
-        translate([tileRadius * 0.038,0,0]) {
-            rotate([0,0,5]) {
+        translate([tileRadius * 0.038, 0, 0]) {
+            rotate([0, 0, 5]) {
                 beeAntenna(piecesLeft - 1);
             }
         }
@@ -69,7 +69,7 @@ module beeAntenna(piecesLeft) {
 module beeTile() {
     difference() {
         tile();
-        translate([0,0,tileHeight]) {
+        translate([0, 0, tileHeight]) {
             bee();
         }
     }
