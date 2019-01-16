@@ -191,4 +191,9 @@ difference() {
 	translate([microphone_x, -thickness, phone_depth / 2 - microphone_depth / 2]) {
 		cube([microphone_width, phone_roundness_v_radius, microphone_depth]);
 	}
+
+	//Due to rounding errors in sqrt() and pow() calls, we need to flatten the bottom again properly.
+	translate([-phone_width, -phone_height, -phone_depth - thickness]) {
+		cube([phone_width * 3, phone_height * 3, phone_depth]);
+	}
 }
