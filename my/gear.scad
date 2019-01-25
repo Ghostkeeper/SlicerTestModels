@@ -1,4 +1,4 @@
-module gear(inner_radius=4.5, teeth_diameter=2, pressure_angle=28, gear_thickness=5) {
+module gear(inner_radius=4.5, teeth_diameter=2, pressure_angle=28) {
 	num_teeth = floor(4 * inner_radius / teeth_diameter + 2);
 	adjusted_teeth_diameter = 1 / (floor(inner_radius / teeth_diameter * 4) / 4 / inner_radius);
 	if(floor(4 * inner_radius / teeth_diameter) != 4 * inner_radius / teeth_diameter) {
