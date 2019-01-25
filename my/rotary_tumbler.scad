@@ -12,7 +12,7 @@ box_height = 150;
 box_thickness = 4;
 box_grooves = 8;
 box_groove_depth = 6;
-teeth_diameter = 3;
+teeth_diameter = 2;
 teeth_width = 10;
 lid_lip_length = 10;
 $fs = 1;
@@ -26,8 +26,13 @@ module box() {
 	difference() {
 		union() {
 			cylinder(r=box_radius + box_thickness, h=box_thickness + box_height);
-			translate([0, 0, 0]) linear_extrude(height=teeth_width) {
+			linear_extrude(height=teeth_width) {
 				gear(inner_radius=box_radius + box_thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
+			}
+			translate([0, 0, box_height + box_thickness - teeth_width - lid_lip_length * 2]) {
+				linear_extrude(height=teeth_width) {
+					gear(inner_radius=box_radius + box_thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
+				}
 			}
 		}
 		translate([0, 0, box_thickness]) {
