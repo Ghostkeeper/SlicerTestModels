@@ -2,9 +2,10 @@ use<gear.scad>;
 
 //Physical.
 m3_radius = 1.5;
-m3_nut_radius = 3;
-m3_nut_thickness = 2;
+m3_nut_radius = 3; //TODO: Measure!
+m3_nut_thickness = 2; //TODO: Measure!
 print_play = 0.2;
+rod_radius = 2; //TODO: Measure!
 
 //Preferences.
 box_radius = 80;
@@ -71,4 +72,27 @@ module box() {
 	}
 }
 
+module lid() {
+	cylinder(r=box_radius + box_thickness, h=box_thickness);
+	difference() {
+		union() {
+			translate([-box_radius / 2 - box_thickness * 2, 0, 0]) {
+				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
+			}
+			translate([box_radius / 2 + box_thickness * 2, 0, 0]) {
+				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
+			}
+		}
+		cylinder(r=box_radius + box_thickness, h=lid_lip_length * 2);
+		translate([-box_radius - box_thickness * 2, 0, box_thickness + lid_lip_length]) {
+			rotate([0, 90, 0]) {
+				cylinder(r=m3_radius, h=box_radius * 2 + box_thickness * 4);
+			}
+		}
+	}
+}
+
 box();
+translate([box_radius * 2 + box_thickness * 2 + 20, 0, 0]) {
+	lid();
+}
