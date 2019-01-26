@@ -5,6 +5,7 @@ m3_radius = 1.5;
 m3_nut_radius = 3; //TODO: Measure!
 m3_nut_thickness = 2; //TODO: Measure!
 print_play = 0.2;
+movement_play = 0.2;
 rod_radius = 2; //TODO: Measure!
 
 //Preferences.
@@ -17,6 +18,8 @@ teeth_diameter = 2;
 teeth_width = 10;
 lid_lip_length = 10;
 rod_gear_radius = 5;
+holder_width = 10;
+holder_extra_height = 10;
 $fs = 1;
 $fa = 0.1;
 
@@ -102,10 +105,58 @@ module rod_gear() {
 	}
 }
 
+module rod_holder() {
+	width = rod_radius * 2 + thickness * 2;
+	difference() {
+		cube([box_radius + width, holder_width, thickness]);
+		translate([(box_radius + width) / 3, holder_width / 2, 0]) {
+			cylinder(r=m3_radius, h=thickness); //No play here. Needs to be tight and cutting in the plastic.
+		}
+		translate([(box_radius + width) * 2 / 3, holder_width / 2, 0]) {
+			cylinder(r=m3_radius, h=thickness);
+		}
+	}
+	difference() {
+		hull() {
+			cube([width, holder_width, thickness]);
+			translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r=width / 2, h=holder_width);
+				}
+			}
+		}
+		translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r=rod_radius + print_play + movement_play, h=holder_width);
+			}
+		}
+	}
+	translate([box_radius, 0, 0]) {
+		difference() {
+			hull() {
+				cube([width, holder_width, thickness]);
+				translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+					rotate([-90, 0, 0]) {
+						cylinder(r=width / 2, h=holder_width);
+					}
+				}
+			}
+			translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r=rod_radius + print_play + movement_play, h=holder_width);
+				}
+			}
+		}
+	}
+}
+
 box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
 }
 translate([0, box_radius + thickness + 20, 0]) {
 	rod_gear();
+}
+translate([-box_radius * 2 - thickness - 20, 0, 0]) {
+	rod_holder();
 }
