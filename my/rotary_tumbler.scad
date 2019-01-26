@@ -16,6 +16,7 @@ box_groove_depth = 6;
 teeth_diameter = 2;
 teeth_width = 10;
 lid_lip_length = 10;
+rod_gear_radius = 5;
 $fs = 1;
 $fa = 0.1;
 
@@ -92,7 +93,19 @@ module lid() {
 	}
 }
 
+module rod_gear() {
+	difference() {
+		linear_extrude(height=teeth_width) {
+			gear(inner_radius=rod_gear_radius, teeth_diameter=teeth_diameter, pressure_angle=30);
+		}
+		cylinder(r=rod_radius + print_play, h=teeth_width);
+	}
+}
+
 box();
 translate([box_radius * 2 + box_thickness * 2 + 20, 0, 0]) {
 	lid();
+}
+translate([0, box_radius + box_thickness + 20, 0]) {
+	rod_gear();
 }
