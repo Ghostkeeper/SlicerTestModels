@@ -20,7 +20,7 @@ $fs = 1;
 $fa = 0.1;
 
 module m3_nut() {
-	cylinder(h=m3_nut_thickness, r=m3_nut_radius, $fn=6);
+	cylinder(h=m3_nut_thickness + 2 * print_play, r=m3_nut_radius + print_play, $fn=6);
 }
 
 module box() {
@@ -41,8 +41,8 @@ module box() {
 		}
 		translate([-box_radius - box_thickness, 0, box_thickness + box_height - lid_lip_length]) {
 			rotate([0, 90, 0]) {
-				cylinder(h=(box_radius + box_thickness) * 2, r=m3_radius);
-				translate([0, 0, box_thickness / 2 - m3_nut_thickness / 2]) {
+				cylinder(h=(box_radius + box_thickness) * 2, r=m3_radius + print_play);
+				translate([0, 0, box_thickness / 2 - m3_nut_thickness / 2 - print_play]) {
 					hull() {
 						m3_nut();
 						translate([-m3_nut_radius, 0, 0]) {
@@ -50,7 +50,7 @@ module box() {
 						}
 					}
 				}
-				translate([0, 0, box_thickness + box_radius * 2 + box_thickness / 2 - m3_nut_thickness / 2]) {
+				translate([0, 0, box_thickness + box_radius * 2 + box_thickness / 2 - m3_nut_thickness / 2 - print_play]) {
 					hull() {
 						m3_nut();
 						translate([-m3_nut_radius, 0, 0]) {
@@ -83,10 +83,10 @@ module lid() {
 				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
 			}
 		}
-		cylinder(r=box_radius + box_thickness, h=lid_lip_length * 2);
+		cylinder(r=box_radius + box_thickness + print_play, h=lid_lip_length * 2);
 		translate([-box_radius - box_thickness * 2, 0, box_thickness + lid_lip_length]) {
 			rotate([0, 90, 0]) {
-				cylinder(r=m3_radius, h=box_radius * 2 + box_thickness * 4);
+				cylinder(r=m3_radius + print_play, h=box_radius * 2 + box_thickness * 4);
 			}
 		}
 	}
