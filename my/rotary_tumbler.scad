@@ -87,7 +87,9 @@ module lid() {
 				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
 			}
 		}
-		cylinder(r=box_radius + thickness + print_play, h=lid_lip_length * 2);
+		translate([0, 0, thickness]) {
+			cylinder(r=box_radius + thickness + print_play, h=lid_lip_length * 2);
+		}
 		translate([-box_radius - thickness * 2, 0, thickness + lid_lip_length]) {
 			rotate([0, 90, 0]) {
 				cylinder(r=m3_radius + print_play, h=box_radius * 2 + thickness * 4);
