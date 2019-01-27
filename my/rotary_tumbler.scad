@@ -207,6 +207,18 @@ module motor_holder() {
 	}
 }
 
+module motor_rod_adapter() {
+	difference() {
+		cylinder(r=rod_radius + thickness, h=thickness * 4);
+		difference() {
+			cylinder(r=rod_radius + print_play, h=thickness * 4);
+			translate([-rod_radius - print_play, -rod_radius - print_play, 0]) {
+				cube([rod_radius * 2 + print_play * 2, 0.5, thickness * 2]); //Motor has 0.5mm shaven off its shaft for extra grip.
+			}
+		}
+	}
+}
+
 box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
@@ -217,6 +229,9 @@ translate([0, box_radius + thickness + 20, 0]) {
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 	rod_holder();
 }
-translate([0, -box_radius * 2, 0]) {
+translate([0, -box_radius * 2 - 20, 0]) {
 	motor_holder();
+}
+translate([box_radius + 20, box_radius + 20, 0]) {
+	motor_rod_adapter();
 }
