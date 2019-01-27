@@ -1,5 +1,6 @@
 module gear(inner_radius=4.5, teeth_diameter=2, pressure_angle=28) {
 	num_teeth = floor(4 * inner_radius / teeth_diameter + 2);
+	echo(str("Generating a gear with ", num_teeth, " teeth."));
 	adjusted_teeth_diameter = 1 / (floor(inner_radius / teeth_diameter * 4) / 4 / inner_radius);
 	if(floor(4 * inner_radius / teeth_diameter) != 4 * inner_radius / teeth_diameter) {
 		echo(str("Imperfect tooth meshing. New teeth diameter: ", teeth_diameter, " -> ", adjusted_teeth_diameter));
