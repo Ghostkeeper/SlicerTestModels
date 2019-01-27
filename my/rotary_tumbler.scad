@@ -11,15 +11,15 @@ rod_radius = 3;
 //Preferences.
 box_radius = 80;
 box_height = 150;
-thickness = 4;
+thickness = 3;
 box_grooves = 8;
 box_groove_depth = 6;
 teeth_diameter = 2;
 teeth_width = 10;
 lid_lip_length = 10;
-rod_gear_radius = 5;
+rod_gear_radius = 20;
 holder_width = 10;
-holder_extra_height = 10;
+holder_extra_height = 20;
 $fs = 1;
 $fa = 0.1;
 
@@ -225,7 +225,7 @@ box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
 }
-translate([0, box_radius + thickness + 20, 0]) {
+translate([0, box_radius + thickness + 40, 0]) {
 	rod_gear();
 }
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
