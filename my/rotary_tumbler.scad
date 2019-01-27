@@ -150,6 +150,63 @@ module rod_holder() {
 	}
 }
 
+module motor_holder() {
+	//https://www.tinytronics.nl/shop/nl/robotica/motoren/motor/aslong-jgb37-3530-transmissiemotor-12v-dc-20rpm
+	screws = 6;
+	screw_distance = 31 / 2;
+	screw_radius = m3_radius;
+	off_centre = 7; //How far the axis is off the centre of the motor.
+	hole_radius = 6;
+	axis_height = thickness + rod_radius + thickness + holder_extra_height; //Same height as rods in rod holder.
+
+	radius = screw_distance + screw_radius + thickness;
+	difference() {
+		hull() {
+			translate([0, axis_height, 0]) {
+				cylinder(r=radius, h=thickness);
+			}
+			translate([-radius, 0, 0]) {
+				cube([radius * 2, thickness, thickness]);
+			}
+		}
+		translate([0, axis_height, 0]) {
+			for(i = [1 : screws]) {
+				rotate([0, 0, i * 360 / screws]) {
+					translate([0, screw_distance, 0]) {
+						cylinder(r=screw_radius, h=thickness);
+					}
+				}
+			}
+		}
+		translate([-off_centre, axis_height, 0]) {
+			cylinder(r=hole_radius + print_play + movement_play, h=thickness);
+		}
+	}
+	difference() {
+		translate([-radius, 0, 0]) {
+			cube([radius * 2, thickness, 40]);
+		}
+		translate([0, axis_height - screw_distance, 0]) {
+			cylinder(r=m3_radius * 2, h=thickness + 12); //This screw would clip. Leave some space for the cap of the screw.
+		}
+		translate([thickness + m3_radius - radius, 0, 10]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r=m3_radius, h=thickness);
+			}
+		}
+		translate([radius - thickness - m3_radius, 0, 10]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r=m3_radius, h=thickness);
+			}
+		}
+		translate([0, 0, 40 - thickness - m3_radius]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r=m3_radius, h=thickness);
+			}
+		}
+	}
+}
+
 box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
@@ -159,4 +216,7 @@ translate([0, box_radius + thickness + 20, 0]) {
 }
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 	rod_holder();
+}
+translate([0, -box_radius * 2, 0]) {
+	motor_holder();
 }
