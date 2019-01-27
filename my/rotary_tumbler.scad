@@ -6,7 +6,7 @@ m3_nut_radius = 3; //TODO: Measure!
 m3_nut_thickness = 2; //TODO: Measure!
 print_play = 0.2;
 movement_play = 0.2;
-rod_radius = 2; //TODO: Measure!
+rod_radius = 3;
 
 //Preferences.
 box_radius = 80;
