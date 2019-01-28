@@ -2,8 +2,8 @@ use<gear.scad>;
 
 //Physical.
 m3_radius = 1.5;
-m3_nut_radius = 3; //TODO: Measure!
-m3_nut_thickness = 2; //TODO: Measure!
+m3_nut_radius = 3;
+m3_nut_thickness = 2.3;
 print_play = 0.2;
 movement_play = 0.2;
 rod_radius = 3;
@@ -20,7 +20,7 @@ lid_lip_length = 10;
 rod_gear_radius = 20;
 holder_width = 10;
 holder_extra_height = 20;
-$fs = 1;
+$fs = 0.4;
 $fa = 0.1;
 
 module m3_nut() {
