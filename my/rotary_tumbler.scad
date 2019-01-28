@@ -2,8 +2,6 @@ use<gear.scad>;
 
 //Physical.
 m3_radius = 1.5;
-m3_nut_radius = 3;
-m3_nut_thickness = 2.3;
 print_play = 0.2;
 movement_play = 0.2;
 rod_radius = 3;
@@ -22,10 +20,6 @@ holder_width = 10;
 holder_extra_height = 20;
 $fs = 0.4;
 $fa = 0.1;
-
-module m3_nut() {
-	cylinder(h=m3_nut_thickness + 2 * print_play, r=m3_nut_radius + print_play, $fn=6);
-}
 
 module box() {
 	difference() {
@@ -46,22 +40,6 @@ module box() {
 		translate([-box_radius - thickness, 0, thickness + box_height - lid_lip_length]) {
 			rotate([0, 90, 0]) {
 				cylinder(h=(box_radius + thickness) * 2, r=m3_radius + print_play);
-				translate([0, 0, thickness / 2 - m3_nut_thickness / 2 - print_play]) {
-					hull() {
-						m3_nut();
-						translate([-m3_nut_radius, 0, 0]) {
-							m3_nut();
-						}
-					}
-				}
-				translate([0, 0, thickness + box_radius * 2 + thickness / 2 - m3_nut_thickness / 2 - print_play]) {
-					hull() {
-						m3_nut();
-						translate([-m3_nut_radius, 0, 0]) {
-							m3_nut();
-						}
-					}
-				}
 			}
 		}
 	}
