@@ -81,7 +81,7 @@ module rod_gear() {
 		linear_extrude(height=teeth_width) {
 			gear(inner_radius=rod_gear_radius, teeth_diameter=teeth_diameter, pressure_angle=30);
 		}
-		cylinder(r=rod_radius + print_play, h=teeth_width);
+		cylinder(r=rod_radius + print_play + 0.1, h=teeth_width); //Sadly, print play is not the same everywhere. Add 0.1mm.
 	}
 }
 
