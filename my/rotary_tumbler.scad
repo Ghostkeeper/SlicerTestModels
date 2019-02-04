@@ -85,7 +85,7 @@ module rod_gear() {
 	}
 }
 
-module rod_holder() {
+module rod_holder(groove_height=0) {
 	width = rod_radius * 2 + thickness * 2;
 	difference() {
 		cube([box_radius + width, holder_width, thickness]);
@@ -99,7 +99,7 @@ module rod_holder() {
 	difference() {
 		hull() {
 			cube([width, holder_width, thickness]);
-			translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+			translate([width / 2, 0, thickness + width / 2 + holder_extra_height + groove_height]) {
 				rotate([-90, 0, 0]) {
 					cylinder(r=width / 2, h=holder_width);
 				}
@@ -115,7 +115,7 @@ module rod_holder() {
 		difference() {
 			hull() {
 				cube([width, holder_width, thickness]);
-				translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
+				translate([width / 2, 0, thickness + width / 2 + holder_extra_height + groove_height]) {
 					rotate([-90, 0, 0]) {
 						cylinder(r=width / 2, h=holder_width);
 					}
@@ -208,6 +208,9 @@ translate([0, box_radius + thickness + 40, 0]) {
 }
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 	rod_holder();
+	translate([0, 30, 0]) {
+		rod_holder(groove_height=20);
+	}
 }
 translate([0, -box_radius * 2 - 20, 0]) {
 	motor_holder();
