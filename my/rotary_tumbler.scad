@@ -265,7 +265,7 @@ translate([0, box_radius + thickness + 40, 0]) {
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 	rod_holder();
 	translate([0, 30, 0]) {
-		rod_holder(groove_height=20);
+		rod_holder(groove_height=17);
 	}
 }
 translate([0, -box_radius * 2 - 20, 0]) {
