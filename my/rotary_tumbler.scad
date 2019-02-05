@@ -138,50 +138,106 @@ module motor_holder() {
 	off_centre = 7; //How far the axis is off the centre of the motor.
 	hole_radius = 6;
 	axis_height = thickness + rod_radius + thickness + holder_extra_height; //Same height as rods in rod holder.
+	thick_radius = 37 / 2;
+	thick_length = 29;
+	thin_radius = 34.5 / 2;
+	thin_length = 30;
+	space = 20; //Space for wiring.
+	connector_width = 9;
+	connector_height = 11;
+	connector_depth = 14.5;
+	screw_platform_width = 20;
 
-	radius = screw_distance + screw_radius + thickness;
+	radius = thick_radius + thickness + print_play;
+	height = thick_length + thin_length + space + connector_depth;
 	difference() {
-		hull() {
-			translate([0, axis_height, 0]) {
-				cylinder(r=radius, h=thickness);
-			}
-			translate([-radius, 0, 0]) {
-				cube([radius * 2, thickness, thickness]);
+		union() {
+			cylinder(r=thick_radius + thickness + print_play, h=height);
+			translate([-axis_height, -thick_radius - thickness - print_play, 0]) {
+				cube([axis_height, (thick_radius + thickness + print_play) * 2, height]);
 			}
 		}
-		translate([0, axis_height, 0]) {
-			for(i = [1 : screws]) {
-				rotate([0, 0, i * 360 / screws]) {
-					translate([0, screw_distance, 0]) {
-						cylinder(r=screw_radius, h=thickness);
-					}
-				}
-			}
-		}
-		translate([-off_centre, axis_height, 0]) {
-			cylinder(r=hole_radius + print_play + movement_play, h=thickness);
+		cylinder(r=thin_radius + print_play, h=thin_length + space + connector_depth);
+		translate([0, 0, thin_length + space + connector_depth]) {
+			cylinder(r=thick_radius + print_play, h=thick_length);
 		}
 	}
 	difference() {
-		translate([-radius, 0, 0]) {
-			cube([radius * 2, thickness, 40]);
+		cylinder(r=thin_radius + thickness + print_play, h=thickness);
+		translate([-connector_height / 2 - print_play, -connector_width / 2 - print_play, 0]) {
+			cube([connector_height + print_play * 2, connector_width + print_play * 2, thickness]);
 		}
-		translate([0, axis_height - screw_distance, 0]) {
-			cylinder(r=m3_radius * 2, h=thickness + 12); //This screw would clip. Leave some space for the cap of the screw.
-		}
-		translate([thickness + m3_radius - radius, 0, 10]) {
-			rotate([-90, 0, 0]) {
-				cylinder(r=m3_radius, h=thickness);
+	}
+	translate([-axis_height, -thick_radius - thickness - print_play - screw_platform_width, 0]) {
+		difference() {
+			cube([thickness, (thick_radius + thickness + print_play + screw_platform_width) * 2, height]);
+			translate([0, screw_platform_width / 2, height / 4]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
+			}
+			translate([0, screw_platform_width / 2, height * 3 / 4]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
+			}
+			translate([0, screw_platform_width * 3 / 2 + (thick_radius + thickness + print_play) * 2, height / 4]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
+			}
+			translate([0, screw_platform_width * 3 / 2 + (thick_radius + thickness + print_play) * 2, height * 3 / 4]) {
+				rotate([0, 90, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
 			}
 		}
-		translate([radius - thickness - m3_radius, 0, 10]) {
-			rotate([-90, 0, 0]) {
-				cylinder(r=m3_radius, h=thickness);
+	}
+
+	translate([radius * 2 + 10, 0, 0]) {
+		difference() {
+			hull() {
+				translate([0, axis_height, 0]) {
+					cylinder(r=radius, h=thickness);
+				}
+				translate([-radius, 0, 0]) {
+					cube([radius * 2, thickness, thickness]);
+				}
+			}
+			translate([0, axis_height, 0]) {
+				for(i = [1 : screws]) {
+					rotate([0, 0, i * 360 / screws]) {
+						translate([0, screw_distance, 0]) {
+							cylinder(r=screw_radius, h=thickness);
+						}
+					}
+				}
+			}
+			translate([-off_centre, axis_height, 0]) {
+				cylinder(r=hole_radius + print_play + movement_play, h=thickness);
 			}
 		}
-		translate([0, 0, 40 - thickness - m3_radius]) {
-			rotate([-90, 0, 0]) {
-				cylinder(r=m3_radius, h=thickness);
+		difference() {
+			translate([-radius, 0, 0]) {
+				cube([radius * 2, thickness, 40]);
+			}
+			translate([0, axis_height - screw_distance, 0]) {
+				cylinder(r=m3_radius * 2, h=thickness + 12); //This screw would clip. Leave some space for the cap of the screw.
+			}
+			translate([thickness + m3_radius - radius, 0, 10]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
+			}
+			translate([radius - thickness - m3_radius, 0, 10]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
+			}
+			translate([0, 0, 40 - thickness - m3_radius]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r=m3_radius, h=thickness);
+				}
 			}
 		}
 	}
