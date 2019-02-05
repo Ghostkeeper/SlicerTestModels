@@ -21,10 +21,20 @@ holder_extra_height = 20;
 $fs = 0.4;
 $fa = 0.1;
 
+module m3_nut() {
+	cylinder(r=m3_nut_radius + print_play, h=m3_nut_thickness + print_play * 2, $fn=6);
+}
+
 module box() {
 	difference() {
 		union() {
 			cylinder(r=box_radius + thickness, h=thickness + box_height);
+			translate([0, 0, teeth_width + 10]) { //Make a groove to keep the box in place.
+				cylinder(r=box_radius + thickness * 2, h=thickness);
+			}
+			translate([0, 0, teeth_width + 10 + thickness + rod_radius * 2 + thickness * 2]) {
+				cylinder(r=box_radius + thickness * 2, h=thickness);
+			}
 			linear_extrude(height=teeth_width) {
 				gear(inner_radius=box_radius + thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
 			}
