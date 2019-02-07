@@ -2,6 +2,8 @@ use<gear.scad>;
 
 //Physical.
 m3_radius = 1.5;
+m3_nut_radius = 3.1;
+m3_nut_thickness = 2.4;
 print_play = 0.2;
 movement_play = 0.2;
 rod_radius = 3;
@@ -65,22 +67,42 @@ module box() {
 }
 
 module lid() {
-	cylinder(r=box_radius + thickness, h=thickness);
 	difference() {
 		union() {
-			translate([-box_radius / 2 - thickness * 2, 0, 0]) {
-				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
-			}
-			translate([box_radius / 2 + thickness * 2, 0, 0]) {
-				cylinder(r=box_radius / 2, h=lid_lip_length * 2);
-			}
+			cylinder(r=box_radius + thickness, h=thickness);
+			cylinder(r=box_radius - print_play, h=thickness + lid_lip_length * 2);
 		}
 		translate([0, 0, thickness]) {
-			cylinder(r=box_radius + thickness + print_play, h=lid_lip_length * 2);
+			cylinder(r=box_radius - box_groove_depth, h=lid_lip_length * 2);
+			linear_extrude(height=box_height + thickness, twist=-120) {
+				for(i = [0 : box_grooves]) {
+					rotate([0, 0, i / box_grooves * 360]) {
+						translate([box_radius - box_groove_depth - thickness, -box_groove_depth / 2]) {
+							square([box_groove_depth + thickness, box_groove_depth + print_play * 2]);
+						}
+					}
+				}
+			}
 		}
-		translate([-box_radius - thickness * 2, 0, thickness + lid_lip_length]) {
+		translate([-box_radius, 0, thickness + lid_lip_length]) {
 			rotate([0, 90, 0]) {
-				cylinder(r=m3_radius + print_play, h=box_radius * 2 + thickness * 4);
+				cylinder(r=m3_radius + print_play, h=box_radius * 2);
+				translate([0, 0, box_groove_depth / 2 - m3_nut_thickness / 2]) {
+					hull() {
+						m3_nut();
+						translate([m3_nut_radius + print_play, 0, 0]) {
+							m3_nut();
+						}
+					}
+				}
+				translate([0, 0, box_radius * 2 - box_groove_depth / 2 - m3_nut_thickness / 2]) {
+					hull() {
+						m3_nut();
+						translate([m3_nut_radius + print_play, 0, 0]) {
+							m3_nut();
+						}
+					}
+				}
 			}
 		}
 	}
