@@ -120,24 +120,24 @@ module rod_gear() {
 module rod_holder(groove_height=0) {
 	width = rod_radius * 2 + thickness * 2;
 	difference() {
-		cube([box_radius + width, holder_width, thickness * 2]);
+		cube([box_radius + width, holder_width, thickness]);
 		translate([(box_radius + width) / 3, holder_width / 2, 0]) {
-			cylinder(r=m3_radius, h=thickness * 2); //No play here. Needs to be tight and cutting in the plastic.
+			cylinder(r=m3_radius, h=thickness); //No play here. Needs to be tight and cutting in the plastic.
 		}
 		translate([(box_radius + width) * 2 / 3, holder_width / 2, 0]) {
-			cylinder(r=m3_radius, h=thickness * 2);
+			cylinder(r=m3_radius, h=thickness);
 		}
 	}
 	difference() {
 		hull() {
 			cube([width, holder_width, thickness]);
-			translate([width / 2, 0, thickness * 2 + width / 2 + holder_extra_height + groove_height]) {
+			translate([width / 2, 0, thickness + width / 2 + holder_extra_height + groove_height]) {
 				rotate([-90, 0, 0]) {
 					cylinder(r=width / 2, h=holder_width);
 				}
 			}
 		}
-		translate([width / 2, 0, thickness * 2 + width / 2 + holder_extra_height]) {
+		translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
 			rotate([-90, 0, 0]) {
 				cylinder(r=rod_radius + print_play + movement_play, h=holder_width);
 			}
@@ -147,13 +147,13 @@ module rod_holder(groove_height=0) {
 		difference() {
 			hull() {
 				cube([width, holder_width, thickness]);
-				translate([width / 2, 0, thickness * 2 + width / 2 + holder_extra_height + groove_height]) {
+				translate([width / 2, 0, thickness + width / 2 + holder_extra_height + groove_height]) {
 					rotate([-90, 0, 0]) {
 						cylinder(r=width / 2, h=holder_width);
 					}
 				}
 			}
-			translate([width / 2, 0, thickness * 2 + width / 2 + holder_extra_height]) {
+			translate([width / 2, 0, thickness + width / 2 + holder_extra_height]) {
 				rotate([-90, 0, 0]) {
 					cylinder(r=rod_radius + print_play + movement_play, h=holder_width);
 				}
