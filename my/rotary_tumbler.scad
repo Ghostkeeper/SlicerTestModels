@@ -9,7 +9,7 @@ movement_play = 0.2;
 rod_radius = 3;
 
 //Preferences.
-box_radius = 80;
+box_radius = 60;
 box_height = 150;
 thickness = 3;
 box_grooves = 8;
