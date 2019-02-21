@@ -69,7 +69,7 @@ module box() {
 module lid() {
 	difference() {
 		union() {
-			cylinder(r=box_radius + thickness, h=thickness);
+			cylinder(r=box_radius + thickness * 3, h=thickness);
 			cylinder(r=box_radius - print_play * 3, h=thickness + lid_lip_length * 2); //Need lots of extra play for blips here.
 		}
 		translate([0, 0, thickness]) {
@@ -84,7 +84,7 @@ module lid() {
 				}
 			}
 		}
-		twist_at_screwholes = lid_lip_length / (box_height + thickness) * 120;
+		twist_at_screwholes = lid_lip_length / (box_height + thickness * 3) * 120;
 		rotate([0, 0, twist_at_screwholes * 2]) {
 			translate([-box_radius, 0, thickness + lid_lip_length]) {
 				rotate([0, 90, 0]) {
