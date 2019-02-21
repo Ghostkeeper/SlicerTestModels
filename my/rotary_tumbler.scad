@@ -290,6 +290,11 @@ module motor_rod_adapter() {
 	}
 }
 
+module gear_spacer() {
+	//TODO: Merge this into the rod holder.
+	cube([thickness + 10 - 1, holder_width, holder_width]);
+}
+
 box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
@@ -308,4 +313,10 @@ translate([0, -box_radius * 2 - 20, 0]) {
 }
 translate([box_radius + 20, box_radius + 20, 0]) {
 	motor_rod_adapter();
+}
+translate([-box_radius, -box_radius, 0]) {
+	gear_spacer();
+	translate([0, -30, 0]) {
+		gear_spacer();
+	}
 }
