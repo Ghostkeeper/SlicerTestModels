@@ -31,12 +31,7 @@ module box() {
 	difference() {
 		union() {
 			cylinder(r=box_radius + thickness, h=thickness + box_height);
-			translate([0, 0, teeth_width + 10]) { //Make a groove to keep the box in place.
-				cylinder(r=box_radius + thickness * 2, h=thickness);
-			}
-			translate([0, 0, teeth_width + 10 + thickness + rod_radius * 2 + thickness * 2]) {
-				cylinder(r=box_radius + thickness * 2, h=thickness);
-			}
+
 			linear_extrude(height=teeth_width) {
 				gear(inner_radius=box_radius + thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
 			}
@@ -290,11 +285,6 @@ module motor_rod_adapter() {
 	}
 }
 
-module gear_spacer() {
-	//TODO: Merge this into the rod holder.
-	cube([thickness + 10 - 1, holder_width, holder_width]);
-}
-
 box();
 translate([box_radius * 2 + thickness * 2 + 20, 0, 0]) {
 	lid();
@@ -304,19 +294,10 @@ translate([0, box_radius + thickness + 40, 0]) {
 }
 translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 	rod_holder();
-	translate([0, 30, 0]) {
-		rod_holder(groove_height=17);
-	}
 }
 translate([0, -box_radius * 2 - 20, 0]) {
 	motor_holder();
 }
 translate([box_radius + 20, box_radius + 20, 0]) {
 	motor_rod_adapter();
-}
-translate([-box_radius, -box_radius, 0]) {
-	gear_spacer();
-	translate([0, -30, 0]) {
-		gear_spacer();
-	}
 }
