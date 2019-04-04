@@ -16,6 +16,7 @@ box_grooves = 8;
 box_groove_depth = 6;
 teeth_diameter = 2;
 teeth_width = 10;
+teeth_ramp = 0.2;
 lid_lip_length = 10;
 rod_gear_radius = 20;
 holder_width = 10;
@@ -32,12 +33,14 @@ module box() {
 		union() {
 			cylinder(r=box_radius + thickness, h=thickness + box_height);
 
-			linear_extrude(height=teeth_width) {
+			linear_extrude(height=teeth_width, scale=1 + teeth_width / box_radius * teeth_ramp) {
 				gear(inner_radius=box_radius + thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
 			}
-			translate([0, 0, box_height + thickness - teeth_width - lid_lip_length * 2]) {
-				linear_extrude(height=teeth_width) {
-					gear(inner_radius=box_radius + thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
+			translate([0, 0, box_height + thickness - lid_lip_length * 2]) {
+				mirror([0, 0, 1]) {
+					linear_extrude(height=teeth_width, scale=1 + teeth_width / box_radius * teeth_ramp) {
+						gear(inner_radius=box_radius + thickness, teeth_diameter=teeth_diameter, pressure_angle=30);
+					}
 				}
 			}
 		}
@@ -108,7 +111,7 @@ module lid() {
 
 module rod_gear() {
 	difference() {
-		linear_extrude(height=teeth_width) {
+		linear_extrude(height=teeth_width, scale=1 + teeth_width / rod_gear_radius * teeth_ramp) {
 			gear(inner_radius=rod_gear_radius, teeth_diameter=teeth_diameter, pressure_angle=30);
 		}
 		cylinder(r=rod_radius + print_play + 0.1, h=teeth_width); //Sadly, print play is not the same everywhere. Add 0.1mm.
