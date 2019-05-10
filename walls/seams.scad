@@ -49,3 +49,8 @@ translate([0, 0, 3]) {
 		}
 	}
 }
+
+//5: Only very straight corners.
+translate([0, 0, 4]) {
+	cylinder(r=5, h=1);
+}
