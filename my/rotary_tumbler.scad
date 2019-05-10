@@ -205,7 +205,7 @@ module motor_holder() {
 		}
 	}
 
-	translate([box_radius * 2 + 10, 0, 0]) {
+	translate([box_radius * 2 + 10, -box_radius, 0]) {
 		difference() {
 			hull() {
 				translate([0, axis_height, 0]) {
