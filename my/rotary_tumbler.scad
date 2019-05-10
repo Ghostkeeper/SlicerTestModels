@@ -170,7 +170,7 @@ module motor_holder() {
 	screw_radius = m3_radius;
 	off_centre = 7; //How far the axis is off the centre of the motor.
 	hole_radius = 6;
-	axis_height = 110.5; //Measured after printing, because the height depends on how well the gears mesh together, how far the axles are away from each other, etc.
+	axis_height = 110.5 - off_centre; //Measured after printing, because the height depends on how well the gears mesh together, how far the axles are away from each other, etc.
 	thick_radius = 37 / 2;
 	thick_length = 29;
 	thin_radius = 34.5 / 2;
@@ -217,14 +217,14 @@ module motor_holder() {
 			}
 			translate([0, axis_height, 0]) {
 				for(i = [1 : screws]) {
-					rotate([0, 0, i * 360 / screws]) {
+					rotate([0, 0, i * 360 / screws + 90]) {
 						translate([0, screw_distance, 0]) {
 							cylinder(r=screw_radius, h=thickness);
 						}
 					}
 				}
 			}
-			translate([-off_centre, axis_height, 0]) {
+			translate([0, axis_height + off_centre, 0]) {
 				cylinder(r=hole_radius + print_play + movement_play, h=thickness);
 			}
 		}
