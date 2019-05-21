@@ -256,9 +256,9 @@ module motor_holder() {
 
 module motor_rod_adapter() {
 	difference() {
-		cylinder(r=rod_radius + thickness, h=thickness * 8);
+		cylinder(r1=rod_radius + thickness, r2=40 + holder_width, h=40 + holder_width);
 		difference() {
-			cylinder(r=rod_radius + print_play, h=thickness * 8);
+			cylinder(r=rod_radius + print_play, h=thickness * 4);
 			translate([-rod_radius - print_play, -rod_radius - print_play, 0]) {
 				cube([rod_radius * 2 + print_play * 2, 0.5, thickness * 4]); //Motor has 0.5mm shaven off its shaft for extra grip.
 			}
