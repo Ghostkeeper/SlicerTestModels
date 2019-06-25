@@ -17,8 +17,8 @@ difference() {
 		}
 	}
 }
-translate([0, 0, 5]) {
+translate([0, 1.5/2, 5]) {
 	linear_extrude(height=1) {
-		text("IM241.06", size=5);
+		text("IM241.06 RHD", size=3.5);
 	}
 }
