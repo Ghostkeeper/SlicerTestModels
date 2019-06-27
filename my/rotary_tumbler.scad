@@ -4,9 +4,13 @@ use<gear.scad>;
 m3_radius = 1.5;
 m3_nut_radius = 3.1;
 m3_nut_thickness = 2.4;
+m3_head_radius = 5.5 / 2;
 print_play = 0.2;
 movement_play = 0.2;
 rod_radius = 3;
+motor_sleeve_radius = 5.1; //0.2mm play.
+motor_sleeve_screw_radius = 18.3; //Leave some space so that the screw can bite down. Actually 18.8.
+motor_sleeve_length = 10.5;
 
 //Preferences.
 box_radius = 60;
@@ -254,13 +258,24 @@ module motor_holder() {
 	}
 }
 
-module motor_rod_adapter() {
+module motor_box_adapter() {
 	difference() {
-		cylinder(r1=rod_radius + thickness, r2=40 + holder_width, h=40 + holder_width);
-		difference() {
-			cylinder(r=rod_radius + print_play, h=thickness * 4);
-			translate([-rod_radius - print_play, -rod_radius - print_play, 0]) {
-				cube([rod_radius * 2 + print_play * 2, 0.5, thickness * 4]); //Motor has 0.5mm shaven off its shaft for extra grip.
+		cylinder(r1=box_radius, r2=motor_sleeve_screw_radius, h=40 + holder_width);
+		translate([0, 0, 40 + holder_width - motor_sleeve_length]) {
+			cylinder(r=motor_sleeve_radius, h=motor_sleeve_length + 0.1);
+			translate([0, 0, motor_sleeve_length / 2]) {
+				rotate([90, 0, 0]) {
+					cylinder(r=m3_radius, h=motor_sleeve_screw_radius);
+					translate([0, 0, motor_sleeve_screw_radius]) {
+						cylinder(r=m3_head_radius, h=9999);
+					}
+				}
+				rotate([0, 90, 0]) {
+					cylinder(r=m3_radius, h=motor_sleeve_screw_radius);
+					translate([0, 0, motor_sleeve_screw_radius]) {
+						cylinder(r=m3_head_radius, h=9999);
+					}
+				}
 			}
 		}
 	}
