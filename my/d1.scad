@@ -1,4 +1,4 @@
-$fn = 360;
+$fn = 120;
 radius = 7.5;
 taper_frac = 0.2;
 text_depth = 1;
