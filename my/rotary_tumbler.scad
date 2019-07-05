@@ -294,6 +294,6 @@ translate([-box_radius * 2 - thickness - 20, 0, 0]) {
 translate([0, -box_radius * 2 - 20, 0]) {
 	motor_holder();
 }
-translate([box_radius + 20, box_radius + 20, 0]) {
-	motor_rod_adapter();
+translate([box_radius * 2, box_radius * 3, 0]) {
+	motor_box_adapter();
 }
