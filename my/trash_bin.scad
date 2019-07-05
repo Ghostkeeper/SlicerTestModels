@@ -89,9 +89,9 @@ module lid() {
 	}
 }
 
-//bin();
+bin();
 translate([radius * 2 + 20, 0, 0]) {
-	//lid_hull();
+	lid_hull();
 }
 translate([radius * 4 + 40, 0, 0]) {
 	lid();
