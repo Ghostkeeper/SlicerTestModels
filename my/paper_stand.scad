@@ -1,9 +1,9 @@
 paper_thickness = 0.6;
 thickness = 1;
-paper_height = 214;
+paper_height = 230;
 
-$fs=0.4;
-$fa=1;
+$fs = 0.4;
+$fa = 1;
 
 difference() {
 	minkowski() {
