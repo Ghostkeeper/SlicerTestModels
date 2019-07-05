@@ -8,8 +8,8 @@ m3_head_radius = 5.5 / 2;
 print_play = 0.2;
 movement_play = 0.2;
 rod_radius = 3;
-motor_sleeve_radius = 5.1; //0.2mm play.
-motor_sleeve_screw_radius = 18.3; //Leave some space so that the screw can bite down. Actually 18.8.
+motor_sleeve_radius = 5.4; //0.5mm play. Better too much than too little.
+motor_sleeve_screw_radius = 17; //Leave some space so that the screw can bite down. Actually 18.8.
 motor_sleeve_length = 10.5;
 
 //Preferences.
