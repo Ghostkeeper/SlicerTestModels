@@ -14,6 +14,8 @@ bottom_curve_height = 11; //Measured from a UM3.
 bottom_curve_radius = 60;
 feet_width = 35;
 corner_cutoff = 1 / 2;
+$fs = 0.2;
+$fa = 1;
 
 //Calculations.
 total_width = inner_diameter + (print_play + thickness) * 2;
