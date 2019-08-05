@@ -1,9 +1,11 @@
 //Settings.
 width = 20;
-length = 40;
+length = 45;
 thickness = 3;
-hook_length = 6;
-steel_thickness = 1;
+back_hook_length = 10;
+down_hook_length = 6;
+front_hook_length = 10;
+steel_thickness = 2;
 $fs = 0.2;
 $fa = 1;
 
@@ -23,7 +25,7 @@ module spaced_corner() {
 
 hull() {
 	spaced_corner();
-	translate([0, hook_length, 0]) {
+	translate([0, back_hook_length, 0]) {
 		corner();
 	}
 }
@@ -36,7 +38,7 @@ hull() {
 translate([thickness + steel_thickness, 0, 0]) {
 	hull() {
 		corner();
-		translate([0, -hook_length, 0]) {
+		translate([0, -down_hook_length, 0]) {
 			corner();
 		}
 	}
@@ -44,7 +46,7 @@ translate([thickness + steel_thickness, 0, 0]) {
 translate([length + thickness, 0, 0]) {
 	hull() {
 		corner();
-		translate([0, hook_length, 0]) {
+		translate([0, front_hook_length, 0]) {
 			corner();
 		}
 	}
