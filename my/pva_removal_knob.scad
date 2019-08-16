@@ -1,7 +1,7 @@
 //Measurements.
 outer_radius = 23.4 / 2;
-inner_radius = 23 / 2;
-knob_depth = 9.2;
+inner_radius = 22.9 / 2;
+knob_depth = 10;
 teeth = 24;
 dimple_distance = 11;
 dimple_radius = 5;
