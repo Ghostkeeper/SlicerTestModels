@@ -8,6 +8,8 @@ main_width = 40;
 fan_width = 100;
 fan_height = 40;
 fan_radius = 4;
+$fs = 0.2;
+$fa = 1;
 
 module axle() {
 	length = 200;
