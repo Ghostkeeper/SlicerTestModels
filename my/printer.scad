@@ -1,5 +1,5 @@
 lid_thickness = 3;
-lid_radius = 7;
+lid_radius = 6;
 lid_extension = 4;
 core_radius = 3;
 chamber_depth = 15;
@@ -109,8 +109,9 @@ module chamber() {
 }
 
 module head() {
-	main_height = 70;
+	main_height = 75;
 	fan_bottom_width = 60;
+	fan_shroud_thickness = 2;
 	head_sink = 50;
 	nozzle_height = 4;
 	nozzle_bottom_radius = 1;
@@ -149,22 +150,54 @@ module head() {
 	}
 
 	//Side fans.
-	minkowski() {
-		intersection() {
-			translate([-fan_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink]) {
-				cube([fan_width - fan_radius * 2, main_width - fan_radius * 2, fan_height]);
+	difference() {
+		minkowski() {
+			intersection() {
+				translate([-fan_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink]) {
+					cube([fan_width - fan_radius * 2, main_width - fan_radius * 2, fan_height]);
+				}
+				rotate([0, 0, 45]) {
+					translate([0, 0, -head_sink]) {
+						cylinder($fn=4, r1=sqrt(2) * (fan_bottom_width / 2 - fan_radius), r2 = sqrt(2) * (fan_width / 2 - fan_radius) + 3, h=fan_height);
+					}
+				}
 			}
-			rotate([0, 0, 45]) {
-				translate([0, 0, -head_sink]) {
-					cylinder($fn=4, r1=sqrt(2) * (fan_bottom_width / 2 - fan_radius), r2 = sqrt(2) * (fan_width / 2 - fan_radius) + 3, h=fan_height);
+			scale([1, 1, 0]) {
+				cylinder(r=fan_radius, h=1);
+			}
+		}
+		translate([-fan_bottom_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink - 1]) {
+			multmatrix([
+				[1, 0, -0.5, 0],
+				[0, 1, 0, 0],
+				[0, 0, 1, 0],
+				[0, 0, 0, 1]
+			]) {
+				minkowski() {
+					cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
+					scale([1, 1, 0]) {
+						cylinder(r=fan_radius - fan_shroud_thickness, h=1);
+					}
 				}
 			}
 		}
-		scale([1, 1, 0]) {
-			cylinder(r=fan_radius, h=1);
+		translate([main_width / 2, -main_width / 2 + fan_radius, -head_sink - 1]) {
+			multmatrix([
+				[1, 0, 0.5, 0],
+				[0, 1, 0, 0],
+				[0, 0, 1, 0],
+				[0, 0, 0, 1]
+			]) {
+				minkowski() {
+					cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
+					scale([1, 1, 0]) {
+						cylinder(r=fan_radius - fan_shroud_thickness, h=1);
+					}
+				}
+			}
 		}
 	}
-	//Chamfers for side fans.
+	//Chamfers for side fans on the top.
 	translate([-main_width / 2 - fan_radius, -main_width / 2, -head_sink + fan_height]) {
 		difference() {
 			cube([fan_radius, main_width, fan_radius]);
