@@ -1,6 +1,6 @@
 //Settings.
 width = 20;
-length = 15;
+length = 22;
 thickness = 3;
 back_hook_length = 10;
 down_hook_length = 6;
