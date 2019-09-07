@@ -6,7 +6,6 @@ stamp_radius = 20;
 $fs = 0.5;
 $fa = 1;
 
-/*
 color([0, 1, 1]) {
 	linear_extrude(height=stamp_depth) {
 		scale(0.06) {
@@ -16,7 +15,7 @@ color([0, 1, 1]) {
 }
 translate([0, 0, stamp_depth]) {
 	cylinder(r=stamp_radius, h=5);
-}*/
+}
 
 
 module figures()
