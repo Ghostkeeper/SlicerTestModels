@@ -1,5 +1,5 @@
 max_height = 1000; //Some very big number, higher than the maximum height of the model.
-your_model = "f.stl"; //The model you're generating support for.
+your_model = "your_model.stl"; //The model you're generating support for.
 
 
 difference() {
