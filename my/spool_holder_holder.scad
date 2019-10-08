@@ -35,8 +35,8 @@ translate([0, -lip_height - thickness, 0]) {
 }
 //Lip to prevent sliding.
 translate([total_width + print_play * 2, 0, 0]) {
-	cube([thickness, plate_width + lip_size * sqrt(2), width]);
-	translate([0, plate_width, 0]) {
+	cube([thickness, plate_width + lip_size * sqrt(2) - print_play, width]);
+	translate([0, plate_width - print_play, 0]) {
 		rotate([0, 0, 45]) {
 			cube([lip_size, lip_size, width]);
 		}
