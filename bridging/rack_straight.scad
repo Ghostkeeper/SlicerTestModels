@@ -16,13 +16,6 @@ difference() {
 
 	intersection() {
 		union() {
-			//Bottom arc.
-			translate([length / 2, -1, -arc_radius + arc_height + (1 - cos(asin((length / 2 - thickness) / arc_radius))) * arc_radius]) {
-				rotate([-90, 0, 0]) {
-					cylinder(r=arc_radius, h=width + 2);
-				}
-			}
-
 			//Top arc.
 			translate([length / 2, -1, arc_radius + arc_height + arc_thickness - (1 - cos(asin((length / 2 - thickness) / arc_radius))) * arc_radius]) {
 				rotate([-90, 0, 0]) {
@@ -45,8 +38,10 @@ difference() {
 
 	//Side legs.
 	translate([-1, width / 2, 0]) {
-		rotate([0, 90, 0]) {
-			cylinder(r=width / 2 - leg_thickness, h=length + 2);
+		rotate([45, 0, 0]) {
+			rotate([0, 90, 0]) {
+				cylinder(r=width / 2 - leg_thickness, h=length + 2, $fn=4);
+			}
 		}
 	}
 	translate([-1, width / 2, height]) {
