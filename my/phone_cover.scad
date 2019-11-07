@@ -22,7 +22,7 @@ camera_width = 25.1;
 camera_height = 15.2;
 
 jack_x = 19.2; //Position of centre!
-jack_width = 10.4;
+jack_width = 10.3;
 usb_x = phone_width / 2; //Position of centre!
 usb_width = 12.0; //A bit more than necessary for large chargers.
 usb_depth = 6.5;
@@ -30,7 +30,7 @@ microphone_x = 45.0;
 microphone_width = 15.0;
 microphone_depth = 5.0;
 
-jack_sleeve_diameter = 10.4; //Allow 0.4mm more for inaccuracy in printing.
+jack_sleeve_diameter = 10.3; //Allow 0.3mm more for inaccuracy in printing.
 jack_sleeve_length = 22.0; //How long the tube for the jack is.
 
 //Settings
