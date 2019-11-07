@@ -1,5 +1,5 @@
 initial_layer_height = 0.27;
-layer_height = 0.15;
+layer_height = 0.1;
 num_layers = 100;
 
 linear_extrude(height = initial_layer_height) {
