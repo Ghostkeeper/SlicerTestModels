@@ -232,12 +232,12 @@ difference() {
 	}
 
 	//Buttons on bottom side.
-	translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
+	translate([0, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
 		rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
-			translate([-buttons_gap, -buttons_gap, -buttons_depth]) {
+			translate([25 - buttons_gap, -buttons_gap, -buttons_depth]) {
 				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, buttons_depth + 1]);
 			}
-			translate([18 - buttons_gap, -buttons_gap, -buttons_depth]) {
+			translate([43 - buttons_gap, -buttons_gap, -buttons_depth]) {
 				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, buttons_depth + 1]);
 			}
 		}
@@ -245,14 +245,48 @@ difference() {
 }
 
 //Buttons on bottom side.
-translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
+translate([0, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
 	rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
-		translate([0, 0, -buttons_depth]) {
+		translate([25, 0, -buttons_depth]) {
 			cube([15, 12, buttons_depth + buttons_prominence]);
 		}
-		translate([18, 0, -buttons_depth]) {
+		translate([43, 0, -buttons_depth]) {
 			cube([15, 12, buttons_depth + buttons_prominence]);
 		}
 	}
 }
 
+//Side panel.
+side_panel_thickness = 2;
+side_panel_height = 20;
+side_panel_length = 90;
+side_panel_angle = 45;
+translate([-thickness, 0, phone_depth / 2]) {
+	translate([-side_panel_thickness, 0, side_panel_thickness]) {
+		//An attempt to sorta close the gap between the round shell and the panel.
+		cube([side_panel_thickness * 2, side_panel_length, side_panel_thickness]);
+	}
+
+	rotate([0, -side_panel_angle, 0]) {
+		//Actual panel.
+		cube([side_panel_thickness, side_panel_length, side_panel_height]);
+
+		rotate([90, 0, 90]) {
+			//Date display.
+			translate([4, 7, side_panel_thickness]) {
+				linear_extrude(1) {
+					//Font download: https://www.dafont.com/led-dot-matrix.font
+					text("2020.1.1", font="LED Dot\\-Matrix");
+				}
+			}
+
+			//Dial.
+			translate([side_panel_length - 10, 12, side_panel_thickness]) {
+				cylinder(r1=5, r2=3, h=5);
+				translate([-0.2, 0, 0]) {
+					cube([0.4, 6, 2]);
+				}
+			}
+		}
+	}
+}
