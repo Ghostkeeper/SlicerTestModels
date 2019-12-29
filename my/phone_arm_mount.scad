@@ -36,8 +36,8 @@ jack_sleeve_diameter2 = 15; //Make it thicker at the base for strength.
 jack_sleeve_endstop_length = 3; //Make the sleeve slope back down to disappear in the object.
 
 bottom_buttons_y = 6;
-bottom_buttons_depth = 2;
-bottom_buttons_prominence = 1;
+buttons_depth = 2;
+buttons_prominence = 1;
 buttons_gap = 0.3;
 
 //$fs = 0.5;
@@ -234,11 +234,11 @@ difference() {
 	//Buttons on bottom side.
 	translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
 		rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
-			translate([-buttons_gap, -buttons_gap, -bottom_buttons_depth]) {
-				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, bottom_buttons_depth + 1]);
+			translate([-buttons_gap, -buttons_gap, -buttons_depth]) {
+				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, buttons_depth + 1]);
 			}
-			translate([18 - buttons_gap, -buttons_gap, -bottom_buttons_depth]) {
-				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, bottom_buttons_depth + 1]);
+			translate([18 - buttons_gap, -buttons_gap, -buttons_depth]) {
+				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, buttons_depth + 1]);
 			}
 		}
 	}
@@ -247,11 +247,12 @@ difference() {
 //Buttons on bottom side.
 translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
 	rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
-		translate([0, 0, -bottom_buttons_depth]) {
-			cube([15, 12, bottom_buttons_depth + bottom_buttons_prominence]);
+		translate([0, 0, -buttons_depth]) {
+			cube([15, 12, buttons_depth + buttons_prominence]);
 		}
-		translate([18, 0, -bottom_buttons_depth]) {
-			cube([15, 12, bottom_buttons_depth + bottom_buttons_prominence]);
+		translate([18, 0, -buttons_depth]) {
+			cube([15, 12, buttons_depth + buttons_prominence]);
 		}
 	}
 }
+
