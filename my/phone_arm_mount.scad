@@ -34,8 +34,14 @@ max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barr
 jack_sleeve_overhang = 3; //How far the sleeve covers the phone. Needs to be at least so that it covers the v_radius component!
 jack_sleeve_diameter2 = 15; //Make it thicker at the base for strength.
 jack_sleeve_endstop_length = 3; //Make the sleeve slope back down to disappear in the object.
-$fs = 0.5;
-$fa = 1;
+
+bottom_buttons_y = 6;
+bottom_buttons_depth = 2;
+bottom_buttons_prominence = 1;
+buttons_gap = 0.3;
+
+//$fs = 0.5;
+//$fa = 1;
 
 //Implementation.
 module body() {
@@ -129,7 +135,7 @@ module elastic_hook(x) {
 		rotate([atan2((arm_height_max - arm_height_min) / 2, jack_sleeve_length + phone_height), 0, 0]) {
 			translate([0, x, 0]) { //Yeah, actually Y. Oh well.
 				rotate([extra_slope, 0, 0]) {
-					#cube([arm_width_max, length, thickness]);
+					cube([arm_width_max, length, thickness]);
 					translate([0, length, 0]) {
 						rotate([-extra_slope + 180, 0, 0]) {
 							cube([arm_width_max, thickness, arm_width_max]);
@@ -171,7 +177,7 @@ difference() {
 	}
 	body(); //Room for the phone.
 	arm(); //Room for the arm.
-	
+
 	elastic_hook(20);
 	elastic_hook(jack_sleeve_length + phone_height - 30);
 
@@ -223,5 +229,29 @@ difference() {
 	//Power button.
 	translate([phone_width - phone_roundness_h, button_power_y, phone_depth / 2 - button_power_depth / 2]) {
 		cube([thickness + phone_roundness_h, button_power_height, button_power_depth]);
+	}
+
+	//Buttons on bottom side.
+	translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
+		rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
+			translate([-buttons_gap, -buttons_gap, -bottom_buttons_depth]) {
+				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, bottom_buttons_depth + 1]);
+			}
+			translate([18 - buttons_gap, -buttons_gap, -bottom_buttons_depth]) {
+				cube([15 + buttons_gap * 2, 12 + buttons_gap * 2, bottom_buttons_depth + 1]);
+			}
+		}
+	}
+}
+
+//Buttons on bottom side.
+translate([25, -jack_sleeve_length - thickness + bottom_buttons_y, phone_depth / 2 + jack_sleeve_diameter / 2 + thickness]) {
+	rotate([atan2((jack_sleeve_diameter2 - jack_sleeve_diameter) / 2, jack_sleeve_length + jack_sleeve_overhang + thickness), 0, 0]) {
+		translate([0, 0, -bottom_buttons_depth]) {
+			cube([15, 12, bottom_buttons_depth + bottom_buttons_prominence]);
+		}
+		translate([18, 0, -bottom_buttons_depth]) {
+			cube([15, 12, bottom_buttons_depth + bottom_buttons_prominence]);
+		}
 	}
 }
