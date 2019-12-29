@@ -21,6 +21,12 @@ jack_width = 10.3;
 jack_sleeve_diameter = 10.3; //Allow 0.3mm more for inaccuracy in printing.
 jack_sleeve_length = 22.0; //How long the tube for the jack is.
 
+//Arm measurements.
+arm_width_max = 80;
+arm_width_min = 60;
+arm_height_max = 80;
+arm_height_min = 45;
+
 //Settings
 thickness = 1.05; //Align to line width for best print results.
 undercut = 0.2; //How far below the phone's surface the mesh will stay.
@@ -28,6 +34,8 @@ max_overhang = 1.5; //How much the lip of the cover is allowed to overhang (barr
 jack_sleeve_overhang = 3; //How far the sleeve covers the phone. Needs to be at least so that it covers the v_radius component!
 jack_sleeve_diameter2 = 15; //Make it thicker at the base for strength.
 jack_sleeve_endstop_length = 3; //Make the sleeve slope back down to disappear in the object.
+$fs = 0.5;
+$fa = 1;
 
 //Implementation.
 module body() {
@@ -89,43 +97,90 @@ module body() {
 	}
 }
 
-//Render the main shell.
-difference() {
-	difference() {
-		hull() {
-			minkowski() {
-				body();
-				sphere(r=thickness);
-			}
-
-			//Bottom side bump.
-			translate([jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
+module arm() {
+	hull() {
+		translate([phone_width / 2, -jack_sleeve_length - thickness, 0]) {
+			translate([0, 0, -arm_height_max / 2]) {
 				rotate([-90, 0, 0]) {
-					cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
-					translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
-						cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+					scale([arm_width_max / arm_height_max, 1, 0]) {
+						cylinder(r=arm_height_max / 2, h=1);
 					}
 				}
 			}
-			translate([phone_width - jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
+			translate([0, jack_sleeve_length + phone_height + thickness * 2, -arm_height_min / 2]) {
 				rotate([-90, 0, 0]) {
-					cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
-					translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
-						cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+					scale([arm_width_min / arm_height_min, 1, 0]) {
+						cylinder(r=arm_height_min / 2, h=1);
 					}
-				}
-			}
-		}
-		translate([jack_x, -thickness - jack_sleeve_length, phone_depth / 2]) {
-			rotate([-90, 0, 0]) {
-				cylinder(r=jack_sleeve_diameter / 2, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
-				translate([-jack_sleeve_diameter2 / 2 - thickness, phone_depth / 2 + thickness, 0]) {
-					cube([jack_sleeve_diameter2, jack_sleeve_diameter2, jack_sleeve_length + jack_sleeve_endstop_length * 2 + thickness]);
 				}
 			}
 		}
 	}
-	body(); //Hollow out!
+}
+
+module elastic_hook(x) {
+	//Hook for the elastic band to attach the thing to my arm.
+	thickness = 2;
+	length = 10;
+	move_up = 10;
+	extra_slope = 5; //Extra slope to "hook" the elastic band in.
+	
+	translate([phone_width / 2 - arm_width_max / 2, -jack_sleeve_length, -arm_height_max / 2 + move_up]) {
+		rotate([atan2((arm_height_max - arm_height_min) / 2, jack_sleeve_length + phone_height), 0, 0]) {
+			translate([0, x, 0]) { //Yeah, actually Y. Oh well.
+				rotate([extra_slope, 0, 0]) {
+					#cube([arm_width_max, length, thickness]);
+					translate([0, length, 0]) {
+						rotate([-extra_slope + 180, 0, 0]) {
+							cube([arm_width_max, thickness, arm_width_max]);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+//Render the main shell.
+difference() {
+	hull() {
+		minkowski() {
+			body();
+			sphere(r=thickness);
+		}
+
+		//Bottom side bump.
+		translate([jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+				translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
+					cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+				}
+			}
+		}
+		translate([phone_width - jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
+			rotate([-90, 0, 0]) {
+				cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+				translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
+					cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+				}
+			}
+		}
+
+		arm();
+	}
+	body(); //Room for the phone.
+	arm(); //Room for the arm.
+	
+	elastic_hook(20);
+	elastic_hook(jack_sleeve_length + phone_height - 30);
+
+	//Hole for the jack plug.
+	translate([jack_x, -thickness - jack_sleeve_length, phone_depth / 2]) {
+		rotate([-90, 0, 0]) {
+			cylinder(r=jack_sleeve_diameter / 2, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+		}
+	}
 
 	//Remove top cover.
 	inset = min(sqrt(1 - pow((phone_depth / 2 - undercut) / phone_roundness_v_radius, 2)) * phone_roundness_v_radius / (phone_depth / 2 - undercut), max_overhang); //cos(sin-1(h)) = sqrt(1 - h^2)
@@ -168,16 +223,5 @@ difference() {
 	//Power button.
 	translate([phone_width - phone_roundness_h, button_power_y, phone_depth / 2 - button_power_depth / 2]) {
 		cube([thickness + phone_roundness_h, button_power_height, button_power_depth]);
-	}
-	//Audio jack.
-	translate([jack_x, -thickness, phone_depth / 2]) {
-		rotate([-90, 0, 0]) {
-			cylinder(r=jack_width / 2, h=inset + 0.4);
-		}
-	}
-
-	//Due to rounding errors in sqrt() and pow() calls, we need to flatten the bottom again properly.
-	translate([-phone_width, -phone_height, -phone_depth - thickness]) {
-		cube([phone_width * 3, phone_height * 3, phone_depth]);
 	}
 }
