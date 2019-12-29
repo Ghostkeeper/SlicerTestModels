@@ -16,11 +16,6 @@ button_power_y = 88.0;
 button_power_height = 17.5;
 button_power_depth = 4.0;
 
-camera_x = 18.5;
-camera_y = 118.0;
-camera_width = 25.1;
-camera_height = 15.2;
-
 jack_x = 19.2; //Position of centre!
 jack_width = 10.3;
 jack_sleeve_diameter = 10.3; //Allow 0.3mm more for inaccuracy in printing.
@@ -165,10 +160,6 @@ difference() {
 	//Power button.
 	translate([phone_width - phone_roundness_h, button_power_y, phone_depth / 2 - button_power_depth / 2]) {
 		cube([thickness + phone_roundness_h, button_power_height, button_power_depth]);
-	}
-	//Camera.
-	translate([camera_x, camera_y, -thickness]) {
-		cube([camera_width, camera_height, thickness]);
 	}
 	//Audio jack.
 	translate([jack_x, -thickness, phone_depth / 2]) {
