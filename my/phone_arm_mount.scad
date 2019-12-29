@@ -98,8 +98,16 @@ difference() {
 				sphere(r=thickness);
 			}
 
-			//Jack sleeve for reinforcement.
-			translate([jack_x, -thickness - jack_sleeve_length, phone_depth / 2]) {
+			//Bottom side bump.
+			translate([jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
+				rotate([-90, 0, 0]) {
+					cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+					translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
+						cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
+					}
+				}
+			}
+			translate([phone_width - jack_sleeve_diameter2 / 2, -thickness - jack_sleeve_length, phone_depth / 2]) {
 				rotate([-90, 0, 0]) {
 					cylinder(r1=jack_sleeve_diameter / 2 + thickness, r2=jack_sleeve_diameter2 / 2 + thickness, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
 					translate([0, 0, jack_sleeve_length + jack_sleeve_overhang + thickness]) {
