@@ -20,8 +20,10 @@ difference() {
 	translate([115 + nose_width / 2, 30, 0]) {
 		cylinder(r=nose_width / 2 + 13, h=5);
 	}
-	translate([115 + nose_width / 2, 30, 0]) {
-		cylinder(r=nose_width / 2 + 6, h=6);
+	translate([115 + nose_width / 2, 30, -1]) {
+		cylinder(r=nose_width / 2 + 6, h=7);
 	}
-	cube([200, 30, 6]);
+	translate([0, 0, -1]) {
+		cube([200, 30, 7]);
+	}
 }
