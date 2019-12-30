@@ -40,8 +40,8 @@ buttons_depth = 2;
 buttons_prominence = 1;
 buttons_gap = 0.3;
 
-$fs = 0.5;
-$fa = 1;
+//$fs = 0.5;
+//$fa = 1;
 
 //Implementation.
 module body() {
@@ -294,8 +294,11 @@ translate([-thickness, 0, phone_depth / 2]) {
 			//Dial.
 			translate([side_panel_length - 10, 12, side_panel_thickness]) {
 				cylinder(r1=5, r2=3, h=5);
-				translate([-0.2, 0, 0]) {
-					cube([0.4, 6, 2]);
+				dial_angle = -60;
+				rotate([0, 0, -dial_angle]) {
+					translate([-0.2, 0, 0]) {
+						cube([0.4, 6, 2]);
+					}
 				}
 			}
 		}
