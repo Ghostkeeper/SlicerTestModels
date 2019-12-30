@@ -40,8 +40,8 @@ buttons_depth = 2;
 buttons_prominence = 1;
 buttons_gap = 0.3;
 
-//$fs = 0.5;
-//$fa = 1;
+$fs = 0.5;
+$fa = 1;
 
 //Implementation.
 module body() {
@@ -281,6 +281,12 @@ translate([-thickness, 0, phone_depth / 2]) {
 	rotate([0, -side_panel_angle, 0]) {
 		//Actual panel.
 		cube([side_panel_thickness, side_panel_length, side_panel_height]);
+		hull() {
+			cube([side_panel_thickness, 0.1, side_panel_height]);
+			translate([0, -jack_sleeve_length - thickness, -4]) {
+				cube([side_panel_thickness, 0.1, 1]);
+			}
+		}
 
 		rotate([90, 0, 90]) {
 			//Date display.
