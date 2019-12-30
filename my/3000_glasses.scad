@@ -10,22 +10,22 @@ $fa = 1;
 
 rotate([180, 0, 0]) {
 	linear_extrude(5) {
-		text("3", font="Market Deco", size=70);
-		translate([35, 5]) {
-			text("O", font="Market Deco", size=70);
+		text("3", font="Market Deco", size=69);
+		translate([33, 5]) {
+			text("O", font="Market Deco", size=69);
 		}
-		translate([110 + nose_width, 5]) {
-			text("O", font="Market Deco", size=70);
+		translate([108 + nose_width, 5]) {
+			text("O", font="Market Deco", size=69);
 		}
-		translate([170 + nose_width, 0]) {
-			text("O", font="Market Deco", size=70);
+		translate([168 + nose_width, 0]) {
+			text("O", font="Market Deco", size=69);
 		}
 	}
 	difference() {
-		translate([115 + nose_width / 2, 30, 0]) {
+		translate([113 + nose_width / 2, 30, 0]) {
 			cylinder(r=nose_width / 2 + 13, h=5);
 		}
-		translate([115 + nose_width / 2, 30, -1]) {
+		translate([113 + nose_width / 2, 30, -1]) {
 			cylinder(r=nose_width / 2 + 6, h=7);
 		}
 		translate([0, 0, -1]) {
@@ -44,9 +44,9 @@ module hook() {
 		}
 	}
 }
-translate([45, 0, 0]) {
+translate([41, 0, 0]) {
 	hook();
 }
-translate([200, 0, 0]) {
+translate([195, 0, 0]) {
 	hook();
 }
