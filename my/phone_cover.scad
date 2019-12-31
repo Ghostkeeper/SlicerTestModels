@@ -30,7 +30,7 @@ microphone_x = 45.0;
 microphone_width = 15.0;
 microphone_depth = 5.0;
 
-jack_sleeve_diameter = 10.3; //Allow 0.3mm more for inaccuracy in printing.
+jack_sleeve_diameter = 10.25; //Allow a bit of play for inaccuracy in printing.
 jack_sleeve_length = 22.0; //How long the tube for the jack is.
 
 //Settings
@@ -121,7 +121,9 @@ difference() {
 							cylinder(r1=jack_sleeve_diameter2 / 2 + thickness, r2=phone_depth / 2, h=jack_sleeve_endstop_length);
 						}
 					}
-					cylinder(r=jack_sleeve_diameter / 2, h=jack_sleeve_length + jack_sleeve_overhang + thickness);
+					translate([0, 0, -1]) {
+						cylinder(r=jack_sleeve_diameter / 2, h=jack_sleeve_length + jack_sleeve_overhang + thickness + 1);
+					}
 					translate([-jack_sleeve_diameter2 / 2 - thickness, phone_depth / 2 + thickness, 0]) {
 						cube([jack_sleeve_diameter2, jack_sleeve_diameter2, jack_sleeve_length + jack_sleeve_endstop_length * 2 + thickness]);
 					}
