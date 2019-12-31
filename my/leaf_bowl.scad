@@ -24,7 +24,7 @@ module halfleaf() {
     halfleaf = [[0, 0], [10, 30], [20, 60], [40, 20], [80, 30], [100, 5], [100, 0]];
     $fn = bend_fn;
     parabolic_bend([50, 100, 1], 0.007, nsteps=bend_fn) {
-        linear_extrude(h=10) {
+        linear_extrude(height=10) {
             rotate([0, 0, 90]) {
                 mirror([0, 1, 0])
                     bezier(halfleaf, $fn=bezier_fn);

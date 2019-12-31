@@ -9,7 +9,7 @@ difference() {
 		cube([radius * 2, radius * 2, radius * taper_frac]);
 	}
 	translate([0, 0, radius - text_depth]) {
-		linear_extrude(h = text_depth) {
+		linear_extrude(height = text_depth) {
 			text("1", halign="center", valign="center", size=6);
 		}
 	}
