@@ -1,3 +1,6 @@
+$fs = 0.2;
+$fa = 1;
+
 difference() {
 	hull() {
 		cylinder(r=10, h=2);
