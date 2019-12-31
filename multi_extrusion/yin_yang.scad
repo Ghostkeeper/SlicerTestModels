@@ -23,7 +23,7 @@ module yinyang(height, radius, dotRadius, fn) {
     }
 }
 
-//Uncomment to create yang.
+//Comment to create yang.
 rotate([0, 0, 180])
 {
     yinyang(height=5, radius=25, dotRadius=3, fn=100);
