@@ -6,7 +6,6 @@ difference() {
 		cylinder(r=5, h=25);
 		translate([0, 0, 5]) {
 			for(i=[0:10 / $fn:10]) {
-				echo(i);
 				cylinder(r1=5 + pow(10 - i, 2) / 10, r2=5, h=pow(i, 2) / 10);
 			}
 		}
