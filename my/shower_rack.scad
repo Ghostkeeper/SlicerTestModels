@@ -1,89 +1,86 @@
 //Rack for my shampoo, razor blade, etc. in the bath room.
+include <fillet.scad>
 
 //Global settings.
 $fs = 0.5;
 $fa = 1;
 
 //Measurements!
-shampoo_width = 91.2; //X
-shampoo_depth = 60; //Y
-shampoo_height = 173; //Z
-shampoo_end_width = 61.7;
-shampoo_end_depth = 37;
-razor_handle_radius = 9.5 / 2;
-tooth_paste_radius = 17;
-tooth_brush_radius = 11.7 / 2;
+shampoo_radius = 40;
+height = 140;
+razor_handle_radius = 10 / 2;
+tooth_paste_radius = 17.2;
+tooth_brush_radius = 12 / 2;
+thickness = 5;
+clip_curve = 30;
+pod_curve = 30;
 
-module shampoo() {
-	a = acos(shampoo_end_width / shampoo_width); //Angle towards top corner of end cap.
-	radius = shampoo_height / 2 / sin(a);
-
-	intersection() {
-		translate([0, 0, shampoo_height / 2]) {
-			scale([shampoo_width / 2 / radius, shampoo_depth / 2 / radius, 1]) {
-				sphere(r = radius);
-			}
-		}
-		translate([-shampoo_width / 2, -shampoo_end_depth / 2, 0]) {
-			cube([shampoo_width, shampoo_end_depth, shampoo_height]);
-		}
-	}
+module clip(radius) {
+    difference() {
+        cylinder(r=radius + thickness, h=20 + clip_curve / sqrt(3));
+        translate([0, 0, -1]) {
+            cylinder(r=radius, h=22 + clip_curve / sqrt(3));
+        }
+        translate([-radius - thickness, -radius, -1]) {
+            cube([radius + thickness, radius * 2, 22 + clip_curve / sqrt(3)]);
+        }
+        translate([radius, -radius - thickness - 1, 10 + (radius + thickness) * 2 + clip_curve / sqrt(3)]) {
+            rotate([-90, 0, 0]) {
+                cylinder(r=(radius + thickness) * 2, h=(radius + thickness) * 2 + 2);
+            }
+        }
+        translate([radius - clip_curve + 1, -radius - thickness - 1, 0]) {
+            rotate([-90, 0, 0]) {
+                cylinder(r=clip_curve, h=(radius + thickness) * 2 + 2);
+            }
+        }
+    }
 }
 
-
-//Main rack.
+//Shampoo shell and tooth paste pod.
 difference() {
-	union() {
-		//Main hull for shampoo.
-		hull() {
-			minkowski() {
-				shampoo();
-				scale([1, 1, 0]) {
-					cylinder(r=5, height=1);
-				}
-			}
-			scale([1, 1, 0]) {
-				cylinder(r=shampoo_width / 2 + 10, h=10);
-			}
-		}
+    fillet(r=pod_curve, steps=30) {
+        cylinder(r=shampoo_radius + thickness, h=height);
+        rotate([0, 0, 30]) {
+            translate([shampoo_radius + thickness + tooth_paste_radius, 0, 0]) {
+                sphere(r=tooth_paste_radius + thickness);
+            }
+        }
+    }
+    //Hollow for the shampoo.
+    translate([0, 0, -1]) {
+        cylinder(r=shampoo_radius, h=height + 2);
+    }
+    translate([-shampoo_radius - thickness - pod_curve - 1, -shampoo_radius - thickness - 1, -1]) {
+        cube([(shampoo_radius + thickness + pod_curve + 1) * 2, shampoo_radius + thickness + 1, height + 2]);
+    }
+    //Hollow for the tooth paste.
+    rotate([0, 0, 30]) {
+        translate([shampoo_radius + thickness + tooth_paste_radius, 0, 0]) {
+            translate([thickness, 0, -1]) {
+                cylinder(r=tooth_paste_radius, h=tooth_paste_radius * 2 + thickness + 2);
+            }
+            translate([-tooth_paste_radius - thickness - pod_curve - 1, -tooth_paste_radius - thickness - pod_curve - 1, -tooth_paste_radius - thickness - 1]) {
+                cube([(tooth_paste_radius + thickness + pod_curve + 1) * 2, (tooth_paste_radius + thickness + pod_curve + 1) * 2, tooth_paste_radius + thickness + 1]);
+            }
+            translate([0, -tooth_paste_radius - thickness - 1, -pod_curve * 5 / 6]) {
+                rotate([-90, 0, 0]) {
+                    cylinder(r=pod_curve, h=(tooth_paste_radius + thickness + 1) * 2);
+                }
+            }
+        }
+    }
+}
 
-		//Hook for razor.
-		translate([-shampoo_width / 2 - 3, shampoo_depth / 4, shampoo_height * 3 / 4]) {
-			difference() {
-				cylinder(r=razor_handle_radius + 5, h=10);
-				cylinder(r=razor_handle_radius + 0.3, h=10);
-				translate([-razor_handle_radius - 5, -razor_handle_radius - 0.3, 0]) {
-					cube([razor_handle_radius + 5, (razor_handle_radius + 0.3) * 2, 10]);
-				}
-			}
-		}
-
-		//Hook for tooth brush.
-		translate([shampoo_width / 2 + 3, shampoo_depth / 4, shampoo_height * 3 / 4]) {
-			difference() {
-				cylinder(r=tooth_brush_radius + 5, h=10);
-				cylinder(r=tooth_brush_radius + 0.2, h=10);
-				translate([0, -tooth_brush_radius - 0.2, 0]) {
-					cube([tooth_brush_radius + 5, (tooth_brush_radius + 0.2) * 2, 10]);
-				}
-			}
-		}
-
-		//Pod for tooth paste.
-		difference() {
-			union() {
-				cube([shampoo_width / 2 + 10 + 5, shampoo_width / 2 + 10, 10]);
-				translate([shampoo_width / 2 + 10 + 5, shampoo_width / 4 + 5, 0]) {
-					cylinder(r=shampoo_width / 4 + 5, h=10);
-				}
-			}
-			translate([shampoo_width / 2 + 10 + tooth_paste_radius, shampoo_width / 4 + 5, 0]) {
-				cylinder(r=tooth_paste_radius, h=10);
-			}
-		}
-	}
-	translate([-shampoo_width / 2 - 10, -shampoo_width / 2 - 10, 0]) {
-		cube([shampoo_width + 20, shampoo_width / 2 + 10, shampoo_height]);
-	}
-	shampoo();
+//Razor clip.
+rotate([0, 0, -10.6]) {
+    translate([-shampoo_radius - thickness - razor_handle_radius, 0, height * 2 / 3]) {
+        clip(razor_handle_radius);
+    }
+}
+//Tooth brush clip.
+rotate([0, 0, 191]) {
+    translate([-shampoo_radius - thickness - tooth_brush_radius, 0, height * 2 / 3]) {
+        clip(tooth_brush_radius);
+    }
 }
