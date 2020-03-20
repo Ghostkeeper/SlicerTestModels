@@ -9,7 +9,7 @@ $fs = 0.3;
 $fa = 1;
 
 cylinder(r=radius, h=height);
-linear_extrude(height=height, twist=twist, $fs = $fs / 100, $fa = $fa / 100) {
+linear_extrude(height=height, twist=twist) {
 	for(a = [360 / blades:360 / blades:360]) {
 		rotate([0, 0, a]) {
 			translate([0, -thinness / 2]) {
