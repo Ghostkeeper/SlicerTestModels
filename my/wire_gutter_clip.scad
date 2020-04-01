@@ -22,9 +22,8 @@ wire_x = leverage + screw_head_radius + thickness + wire_radius + play;
 difference() {
 	//Main body.
 	hull() {
-		cylinder(r=width / 2, h=thickness);
-		translate([wire_x + wire_radius + play + thickness, 0, 0]) {
-			cylinder(r=width / 2, h=thickness);
+		translate([-width / 2, -width / 2, 0]) {
+			cube([width + wire_x + wire_radius + play + thickness, width, thickness]);
 		}
 		translate([wire_x, -width / 2, wire_radius + play + extra_wire_height]) {
 			rotate([-90, 0, 0]) {
