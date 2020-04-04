@@ -15,9 +15,11 @@ module axle() {
 	length = 200;
 	radius = 2.5;
 
-	translate([-length / 2, 0, 0]) {
-		rotate([0, 90, 0]) {
-			cylinder(r=radius, h=length);
+	color([0.5, 0.5, 0.5]) {
+		translate([-length / 2, 0, 0]) {
+			rotate([0, 90, 0]) {
+				cylinder(r=radius, h=length);
+			}
 		}
 	}
 }
@@ -122,115 +124,121 @@ module head() {
 
 	//Main body.
 	translate([-main_width / 2, -main_width / 2, -head_sink]) {
-		difference() {
-			cube([main_width, main_width, main_height]);
-			translate([main_width / 4, 0, fan_height]) {
-				chamber();
-			}
-			translate([main_width * 3 / 4, 0, fan_height]) {
-				chamber();
+		color([1, 1, 1]) {
+			difference() {
+				cube([main_width, main_width, main_height]);
+				translate([main_width / 4, 0, fan_height]) {
+					chamber();
+				}
+				translate([main_width * 3 / 4, 0, fan_height]) {
+					chamber();
+				}
 			}
 		}
 
 		//Lips to pull the print cores on.
-		hull() {
-			translate([main_width / 4, chamber_depth - core_radius, fan_height]) {
-				cylinder(r=lid_radius, h=lid_thickness);
+		color([0.8, 0.8, 0.8]) {
+			hull() {
+				translate([main_width / 4, chamber_depth - core_radius, fan_height]) {
+					cylinder(r=lid_radius, h=lid_thickness);
+				}
+				translate([main_width / 4, -lid_extension, fan_height]) {
+					cylinder(r=lid_radius, h=lid_thickness);
+				}
 			}
-			translate([main_width / 4, -lid_extension, fan_height]) {
-				cylinder(r=lid_radius, h=lid_thickness);
-			}
-		}
-		hull() {
-			translate([main_width * 3/ 4, chamber_depth - core_radius, fan_height]) {
-				cylinder(r=lid_radius, h=lid_thickness);
-			}
-			translate([main_width * 3 / 4, -lid_extension, fan_height]) {
-				cylinder(r=lid_radius, h=lid_thickness);
+			hull() {
+				translate([main_width * 3/ 4, chamber_depth - core_radius, fan_height]) {
+					cylinder(r=lid_radius, h=lid_thickness);
+				}
+				translate([main_width * 3 / 4, -lid_extension, fan_height]) {
+					cylinder(r=lid_radius, h=lid_thickness);
+				}
 			}
 		}
 	}
 
 	//Side fans.
-	difference() {
-		minkowski() {
-			intersection() {
-				translate([-fan_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink]) {
-					cube([fan_width - fan_radius * 2, main_width - fan_radius * 2, fan_height]);
-				}
-				rotate([0, 0, 45]) {
-					translate([0, 0, -head_sink]) {
-						cylinder($fn=4, r1=sqrt(2) * (fan_bottom_width / 2 - fan_radius), r2 = sqrt(2) * (fan_width / 2 - fan_radius) + 3, h=fan_height);
-					}
-				}
-			}
-			scale([1, 1, 0]) {
-				cylinder(r=fan_radius, h=1);
-			}
-		}
-		translate([-fan_bottom_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink - 1]) {
-			multmatrix([
-				[1, 0, -0.5, 0],
-				[0, 1, 0, 0],
-				[0, 0, 1, 0],
-				[0, 0, 0, 1]
-			]) {
-				minkowski() {
-					cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
-					scale([1, 1, 0]) {
-						cylinder(r=fan_radius - fan_shroud_thickness, h=1);
-					}
-				}
-			}
-		}
-		translate([main_width / 2, -main_width / 2 + fan_radius, -head_sink - 1]) {
-			multmatrix([
-				[1, 0, 0.5, 0],
-				[0, 1, 0, 0],
-				[0, 0, 1, 0],
-				[0, 0, 0, 1]
-			]) {
-				minkowski() {
-					cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
-					scale([1, 1, 0]) {
-						cylinder(r=fan_radius - fan_shroud_thickness, h=1);
-					}
-				}
-			}
-		}
-	}
-	//Chamfers for side fans on the top.
-	translate([-main_width / 2 - fan_radius, -main_width / 2, -head_sink + fan_height]) {
+	color([1, 1, 1]) {
 		difference() {
-			cube([fan_radius, main_width, fan_radius]);
-			translate([0, -1, fan_radius]) {
-				rotate([-90, 0, 0]) {
-					cylinder(r=fan_radius, h=main_width + 2);
+			minkowski() {
+				intersection() {
+					translate([-fan_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink]) {
+						cube([fan_width - fan_radius * 2, main_width - fan_radius * 2, fan_height]);
+					}
+					rotate([0, 0, 45]) {
+						translate([0, 0, -head_sink]) {
+							cylinder($fn=4, r1=sqrt(2) * (fan_bottom_width / 2 - fan_radius), r2 = sqrt(2) * (fan_width / 2 - fan_radius) + 3, h=fan_height);
+						}
+					}
+				}
+				scale([1, 1, 0]) {
+					cylinder(r=fan_radius, h=1);
+				}
+			}
+			translate([-fan_bottom_width / 2 + fan_radius, -main_width / 2 + fan_radius, -head_sink - 1]) {
+				multmatrix([
+					[1, 0, -0.5, 0],
+					[0, 1, 0, 0],
+					[0, 0, 1, 0],
+					[0, 0, 0, 1]
+				]) {
+					minkowski() {
+						cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
+						scale([1, 1, 0]) {
+							cylinder(r=fan_radius - fan_shroud_thickness, h=1);
+						}
+					}
+				}
+			}
+			translate([main_width / 2, -main_width / 2 + fan_radius, -head_sink - 1]) {
+				multmatrix([
+					[1, 0, 0.5, 0],
+					[0, 1, 0, 0],
+					[0, 0, 1, 0],
+					[0, 0, 0, 1]
+				]) {
+					minkowski() {
+						cube([fan_bottom_width / 2 - main_width / 2 - fan_radius, main_width - fan_radius * 2, fan_height - fan_shroud_thickness]);
+						scale([1, 1, 0]) {
+							cylinder(r=fan_radius - fan_shroud_thickness, h=1);
+						}
+					}
 				}
 			}
 		}
-	}
-	translate([main_width / 2, -main_width / 2, -head_sink + fan_height]) {
-		difference() {
-			cube([fan_radius, main_width, fan_radius]);
-			translate([fan_radius, -1, fan_radius]) {
-				rotate([-90, 0, 0]) {
-					cylinder(r=fan_radius, h=main_width + 2);
+		//Chamfers for side fans on the top.
+		translate([-main_width / 2 - fan_radius, -main_width / 2, -head_sink + fan_height]) {
+			difference() {
+				cube([fan_radius, main_width, fan_radius]);
+				translate([0, -1, fan_radius]) {
+					rotate([-90, 0, 0]) {
+						cylinder(r=fan_radius, h=main_width + 2);
+					}
 				}
 			}
 		}
-	}
+		translate([main_width / 2, -main_width / 2, -head_sink + fan_height]) {
+			difference() {
+				cube([fan_radius, main_width, fan_radius]);
+				translate([fan_radius, -1, fan_radius]) {
+					rotate([-90, 0, 0]) {
+						cylinder(r=fan_radius, h=main_width + 2);
+					}
+				}
+			}
+		}
 
-	translate([-main_width / 2, -fan_width / 2, -head_sink]) {
-		front_fan();
-	}
+		translate([-main_width / 2, -fan_width / 2, -head_sink]) {
+			front_fan();
+		}
 
-	//Nozzles.
-	translate([-main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink - nozzle_height]) {
-		cylinder(r1=nozzle_bottom_radius, r2=nozzle_top_radius, h=nozzle_height);
-	}
-	translate([main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink -nozzle2_height]) {
-		cylinder(r1=nozzle_bottom_radius, r2=nozzle_top_radius, h=nozzle_height);
+		//Nozzles.
+		translate([-main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink - nozzle_height]) {
+			cylinder(r1=nozzle_bottom_radius, r2=nozzle_top_radius, h=nozzle_height);
+		}
+		translate([main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink -nozzle2_height]) {
+			cylinder(r1=nozzle_bottom_radius, r2=nozzle_top_radius, h=nozzle_height);
+		}
 	}
 }
 
