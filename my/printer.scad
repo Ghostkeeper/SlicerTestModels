@@ -122,6 +122,7 @@ module head() {
 	nozzle_top_radius = 4;
 	nozzle2_height = 3;
 	cable_chamfer_radius = 5;
+	top_hole_depth = main_height - fan_height - 20; //Maximum depth until it hits the chambers.
 
 	//Main body.
 	translate([-main_width / 2, -main_width / 2, -head_sink]) {
@@ -133,6 +134,15 @@ module head() {
 				}
 				translate([main_width * 3 / 4, 0, fan_height]) {
 					chamber();
+				}
+				translate([main_width / 2, main_width * 2 / 3, main_height - top_hole_depth]) { //Hole for cables.
+					cylinder(r=cable_chamfer_radius - 1, h=top_hole_depth + 1);
+				}
+				translate([main_width / 4, chamber_depth - core_radius, main_height - top_hole_depth]) { //Hole for left Bowden tube.
+					cylinder(r=core_radius, h=top_hole_depth + 1);
+				}
+				translate([main_width * 3 / 4, chamber_depth - core_radius, main_height - top_hole_depth]) { //Hole for right Bowden tube.
+					cylinder(r=core_radius, h=top_hole_depth + 1);
 				}
 			}
 		}
@@ -182,7 +192,7 @@ module head() {
 		}
 	}
 
-	//Holes for the Bowden tubes.
+	//Clips for the Bowden tubes.
 	color([1, 1, 1]) {
 		translate([-main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink + main_height]) {
 			difference() {
