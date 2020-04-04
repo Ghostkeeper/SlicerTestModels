@@ -222,6 +222,26 @@ module head() {
 		}
 	}
 
+	//Screws at the top.
+	screw_padding = 2;
+	screw_radius = 1;
+	color([0.5, 0.5, 0.5]) {
+		translate([0, 0, -head_sink + main_height]) {
+			translate([-main_width / 2 + screw_padding, -main_width / 2 + screw_padding, 0]) {
+				cylinder(r=screw_radius, h=screw_radius);
+			}
+			translate([main_width / 2 - screw_padding, -main_width / 2 + screw_padding, 0]) {
+				cylinder(r=screw_radius, h=screw_radius);
+			}
+			translate([main_width / 2 - screw_padding, main_width / 2 - screw_padding, 0]) {
+				cylinder(r=screw_radius, h=screw_radius);
+			}
+			translate([-main_width / 2 + screw_padding, main_width / 2 - screw_padding, 0]) {
+				cylinder(r=screw_radius, h=screw_radius);
+			}
+		}
+	}
+
 	//Side fans.
 	num_air_holes = 7;
 	rib_thickness = 1.7;
