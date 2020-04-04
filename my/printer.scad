@@ -121,6 +121,7 @@ module head() {
 	nozzle_bottom_radius = 1;
 	nozzle_top_radius = 4;
 	nozzle2_height = 3;
+	cable_chamfer_radius = 5;
 
 	//Main body.
 	translate([-main_width / 2, -main_width / 2, -head_sink]) {
@@ -153,6 +154,60 @@ module head() {
 				translate([main_width * 3 / 4, -lid_extension, fan_height]) {
 					cylinder(r=lid_radius, h=lid_thickness);
 				}
+			}
+		}
+	}
+
+	//Chamfered rim towards the cables.
+	color([1, 1, 1]) {
+		translate([0, main_width / 2 - main_width / 3, -head_sink + main_height]) {
+			difference() {
+				union() {
+					scale([1, 1, 1.5]) {
+						rotate_extrude() {
+							difference() {
+								translate([cable_chamfer_radius, 0]) {
+									square(cable_chamfer_radius);
+								}
+								translate([cable_chamfer_radius * 2, cable_chamfer_radius]) {
+									circle(r=cable_chamfer_radius);
+								}
+							}
+						}
+					}
+					cylinder(r=cable_chamfer_radius, h=cable_chamfer_radius * 1.5);
+				}
+				cylinder(r=cable_chamfer_radius - 1, h=cable_chamfer_radius * 1.5 + 1);
+			}
+		}
+	}
+
+	//Holes for the Bowden tubes.
+	color([1, 1, 1]) {
+		translate([-main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink + main_height]) {
+			difference() {
+				union() {
+					cylinder(r=core_radius + 1, h=1);
+					translate([0, 0, 1]) {
+						scale([1.2, 1, 1]) {
+							cylinder(r=core_radius + 1, h=1);
+						}
+					}
+				}
+				cylinder(r=core_radius, h=3);
+			}
+		}
+		translate([main_width / 4, -main_width / 2 + chamber_depth - core_radius, -head_sink + main_height]) {
+			difference() {
+				union() {
+					cylinder(r=core_radius + 1, h=1);
+					translate([0, 0, 1]) {
+						scale([1.2, 1, 1]) {
+							cylinder(r=core_radius + 1, h=1);
+						}
+					}
+				}
+				cylinder(r=core_radius, h=3);
 			}
 		}
 	}
