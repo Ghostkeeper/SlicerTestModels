@@ -158,6 +158,9 @@ module head() {
 	}
 
 	//Side fans.
+	num_air_holes = 7;
+	rib_thickness = 1.7;
+	hole_size = (main_width - (num_air_holes + 1) * rib_thickness) / num_air_holes;
 	color([1, 1, 1]) {
 		difference() {
 			minkowski() {
@@ -205,6 +208,16 @@ module head() {
 					}
 				}
 			}
+			for(i = [0:num_air_holes - 1]) {
+				translate([-fan_bottom_width / 2, -main_width / 2 + (i + 1) * rib_thickness + i * hole_size + hole_size / 2, -head_sink + fan_height * 2 / 3]) {
+					hull() {
+						cylinder(r=hole_size / 2, h=fan_height / 3 + 1);
+						translate([fan_bottom_width, 0, 0]) {
+							cylinder(r=hole_size / 2, h=fan_height / 3 + 1);
+						}
+					}
+				}
+			}
 		}
 		//Chamfers for side fans on the top.
 		translate([-main_width / 2 - fan_radius, -main_width / 2, -head_sink + fan_height]) {
@@ -215,6 +228,11 @@ module head() {
 						cylinder(r=fan_radius, h=main_width + 2);
 					}
 				}
+				for(i = [0:num_air_holes - 1]) {
+					translate([0, (i + 1) * rib_thickness + i * hole_size, -1]) {
+						cube([fan_radius, hole_size, fan_radius + 1]);
+					}
+				}
 			}
 		}
 		translate([main_width / 2, -main_width / 2, -head_sink + fan_height]) {
@@ -223,6 +241,11 @@ module head() {
 				translate([fan_radius, -1, fan_radius]) {
 					rotate([-90, 0, 0]) {
 						cylinder(r=fan_radius, h=main_width + 2);
+					}
+				}
+				for(i = [0:num_air_holes - 1]) {
+					translate([0, (i + 1) * rib_thickness + i * hole_size, -1]) {
+						cube([fan_radius, hole_size, fan_radius + 1]);
 					}
 				}
 			}
