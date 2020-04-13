@@ -7,9 +7,9 @@ $fa = 1;
 fillet_steps = 30;
 
 //Measurements!
-shampoo_radius = 30.5;
-height = 140;
-razor_handle_radius = 10 / 2;
+shampoo_radius = 30.8;
+height = 188;
+razor_handle_radius = 9.5 / 2;
 tooth_paste_radius = 17.2;
 tooth_brush_radius = 12 / 2;
 thickness = 5;
@@ -40,7 +40,7 @@ difference() {
 			sphere(r=thickness);
 		}		//Tooth brush bracket.
 		rotate([0, 0, 20]) {
-			translate([shampoo_radius + tooth_brush_radius + thickness, 0, height * 2 / 3]) {
+			translate([shampoo_radius + tooth_brush_radius + thickness, 0, height * 3 / 4]) {
 				rotate([0, -45, 0]) {
 					difference() {
 						cylinder(r=tooth_brush_radius + thickness * 2, h=100);
@@ -55,8 +55,8 @@ difference() {
 		}
 		//Razor bracket.
 		rotate([0, 0, 160]) {
-			translate([shampoo_radius + razor_handle_radius + thickness, 0, height * 2 / 3]) {
-				rotate([0, -45, 0]) {
+			translate([shampoo_radius + razor_handle_radius + thickness, 0, height * 3 / 4]) {
+				rotate([0, -70, 0]) {
 					difference() {
 						cylinder(r=razor_handle_radius + thickness * 2, h=100);
 						translate([razor_handle_radius + thickness * 2, -razor_handle_radius - thickness * 2, 0]) {
@@ -69,7 +69,7 @@ difference() {
 			}
 		}
 		//Tooth paste pod.
-		rotate([0, 0, 40]) {
+		rotate([0, 0, 50]) {
 			translate([shampoo_radius + thickness + tooth_paste_radius, 0, 0]) {
 				sphere(r=tooth_paste_radius + thickness);
 			}
@@ -107,7 +107,7 @@ difference() {
 		}
 	}
 	//Hollow for the tooth paste.
-	rotate([0, 0, 40]) {
+	rotate([0, 0, 50]) {
 		translate([shampoo_radius + thickness + tooth_paste_radius, 0, -1]) {
 			cylinder(r=tooth_paste_radius, h=tooth_paste_radius + thickness + pod_curve + 2);
 			translate([0, -tooth_paste_radius - thickness - 1, -tooth_paste_radius * 1.5]) {
