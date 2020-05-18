@@ -4,12 +4,12 @@ line_width_step = 0.05;
 layer_height_step = 0.1;
 
 module originalShape() {
-    cube(10);
+    /*cube(10);
     cube([20, 0.1, 10]);
     cube([0.1, 20, 10]);
-    cube([20, 20, 0.01]);
-    /*scale([0.1, 1, 1])
-        cylinder(r=10, $fn=3, h=5);*/
+    cube([20, 20, 0.01]);*/
+    scale([0.1, 1, 1])
+        cylinder(r=10, $fn=3, h=5);
 }
 
 //-------------Don't change below this line.--------------
