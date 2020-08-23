@@ -3,7 +3,7 @@ front_radius = 63 / 2;
 height = 28;
 total_radius = 94 / 2;
 thickness = 29;
-thinness = 25;
+thinness = 22;
 wire_z = height - 15;
 wire_x = total_radius - 32;
 wire_radius = 8 / 2; //Way more play, to allow flexing the cable.
@@ -18,8 +18,15 @@ $fa = 1;
 difference() {
 	union() {
 		intersection() {
-			scale([1, (thinness / 2 + thick + play) / (total_radius + thick + play), 1]) {
-				cylinder(r=total_radius + thick + play, h=height + thick + play);
+			scale([1, (thinness / 2 + thick + play) / (total_radius - front_radius + thick + play), 1]) {
+				hull() {
+					translate([-front_radius, 0, 0]) {
+						cylinder(r=total_radius - front_radius + thick + play, h=height + thick + play);
+					}
+					translate([front_radius, 0, 0]) {
+						cylinder(r=total_radius - front_radius + thick + play, h=height + thick + play);
+					}
+				}
 			}
 			translate([0, -thinness / 2 - thick - play, height / 2]) {
 				rotate([-90, 0, 0]) {
@@ -53,8 +60,15 @@ difference() {
 	union() {
 		intersection() {
 			translate([0, 0, -1]) {
-				scale([1, (thinness / 2 + play) / (total_radius + play), 1]) {
-					cylinder(r=total_radius + play, h=height + play + 1);
+				scale([1, (thinness / 2 + play) / (total_radius - front_radius + play), 1]) {
+					hull() {
+						translate([-front_radius, 0, 0]) {
+							cylinder(r=total_radius - front_radius + play, h=height + play + 1);
+						}
+						translate([front_radius, 0, 0]) {
+							cylinder(r=total_radius - front_radius + play, h=height + play + 1);
+						}
+					}
 				}
 			}
 			translate([0, -thinness / 2 - play, height / 2]) {
