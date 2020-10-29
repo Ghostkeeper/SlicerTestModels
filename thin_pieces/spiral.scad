@@ -1,6 +1,6 @@
 //Settings.
 windings = 10; //How often to go around the circle.
-angle_step = 5; //Degrees.
+angle_step = 1; //Degrees.
 max_width = 2; //Width at the outside of the spiral.
 min_width = 0; //Width on the inside of the spiral.
 max_radius = 40; //Radius of the total spiral (slightly different due to thickness of the curve).
