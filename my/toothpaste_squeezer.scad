@@ -1,6 +1,6 @@
 //Settings.
 hole_length = 60;
-hole_width = 4.5;
+hole_width = 3.5;
 thickness = 5;
 fillet = 1;
 grip = 10; //General "width" extending beyond the hole.
