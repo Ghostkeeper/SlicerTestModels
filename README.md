@@ -32,7 +32,7 @@ stl             | The STL file format. Tests if we can load these files properly
 stress_test     | Some very big models, with lots of parts or things that otherwise take the slicer and printer to their limits. Use to test performance of the slicer.
 support         | These models have some structures that need to be supported in order to print well. Tests support generation under various constraints, such as when it has to rest on the model, avoid the model, not go outside of the build plate, etc.
 text            | Models with text in/on them. These are useful for walls but not intended for them (see the walls category). Use these to label stuff by putting them alongside your prints. Or to label stuff by aligning them to specific layers. To label stuff, in short.
-tower           | Model definition to create test part call as Tower usualy Temp Tower , Retract tower etc.
+tower           | Models definition to create test part usualy call as Tower : Temp Tower , Retract tower etc.
 walls           | Models aimed at generating nice perimeters, even if the model needs to become small.
 x3d             | The X3D file format. Tests if we can load these files properly.
 
