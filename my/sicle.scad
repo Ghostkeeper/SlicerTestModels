@@ -2,7 +2,7 @@
 radius = 100;
 width = 10;
 height = 3;
-angle_range = 160;
+angle_range = 270;
 rounding = 2;
 $fn = 100;
 
