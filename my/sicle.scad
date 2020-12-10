@@ -2,8 +2,9 @@
 radius = 100;
 width = 10;
 height = 3;
-angle_range = 270;
+angle_range = 240; //degrees
 rounding = 2;
+incline = 20; //degrees
 $fn = 100;
 
 //Implementation.
@@ -27,16 +28,18 @@ module endstop(angle) {
 	}
 }
 
-angle_step = angle_range / ($fn - 1);
-for(a = [-angle_range/2 : angle_step : angle_range/2 - angle_step/2]) {
-	hull() {
-		rotate([0, 0, a]) {
-			slice(a);
-		}
-		rotate([0, 0, a + angle_step]) {
-			slice(a + angle_step);
+rotate([0, -incline, 0]) {
+	angle_step = angle_range / ($fn - 1);
+	for(a = [-angle_range/2 : angle_step : angle_range/2 - angle_step/2]) {
+		hull() {
+			rotate([0, 0, a]) {
+				slice(a);
+			}
+			rotate([0, 0, a + angle_step]) {
+				slice(a + angle_step);
+			}
 		}
 	}
+	endstop(-angle_range / 2);
+	endstop(angle_range / 2);
 }
-endstop(-angle_range / 2);
-endstop(angle_range / 2);
