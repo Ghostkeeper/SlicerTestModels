@@ -39,6 +39,7 @@ Contributing
 You can add files to this repository via a pull request, but there are a couple of rules that should be enforced:
 * Files should be no larger than 1MB. This prevents getting a huge Git history. If need be we can introduce links to permanent download locations so that additional pre-rendered files may be found but let's try to prevent that from being necessary for now.
 * All files will be published under the CC0 Creative Commons license. Make sure that you have the right to publish it as such.
+* Models are intended to test slicer features, not printers. Calibration is out of scope.
 * The maintainer(s) of this repository reserve the final arbitrage to judge whether it is appropriate for a model to be shared under the premise that it tests certain slicer features.
 
 License
