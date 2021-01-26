@@ -1,9 +1,9 @@
 //Width of the channel that connects the two parts.
-//For a good combing test, this should be less than 2 line widths.
+//For a good combing test, this should be slightly more than 2 line widths.
 //That way, the slicer will be able to comb within the preferred boundary
 //for the most part, but will have to fall back to the minimum boundary for
 //this narrow channel.
-channel_width = 0.5;
+channel_width = 0.8;
 radius = 10;
 
 difference() {
