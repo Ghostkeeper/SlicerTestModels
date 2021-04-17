@@ -17,4 +17,4 @@ module web(prongs, stakes, line_width, radius, height) {
 }
 
 //web(prongs=7, stakes=4, line_width=0.5, radius=20, height=0.9);
-web(prongs=7, stakes=4, line_width=0.9, radius=20, height = 0.9);
+web(prongs=7, stakes=4, line_width=0.9, radius=20, height=0.9);
