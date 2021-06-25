@@ -46,6 +46,9 @@ translate([0, 0, 3]) {
 			translate([3, 3]) {
 				square(5);
 			}
+			translate([-8, -8]) {
+				square(5);
+			}
 		}
 	}
 }
