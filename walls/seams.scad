@@ -54,3 +54,23 @@ translate([0, 0, 3]) {
 translate([0, 0, 4]) {
 	cylinder(r=5, h=1);
 }
+
+//6: Smart Hiding should choose minor inner corners over major outer corners.
+translate([0, 0, 5]) {
+	difference() {
+		union() {
+			translate([-2, 0, 0]) {
+				cylinder(r=3, h=1, $fn=10);
+			}
+			translate([2, 0, 0]) {
+				cylinder(r=3, h=1, $fn=10);
+			}
+		}
+		translate([0, -6, 0]) {
+			cylinder(r=4, h=2, $fn=15);
+		}
+		translate([0, 6, 0]) {
+			cylinder(r=4, h=2, $fn=15);
+		}
+	}
+}
