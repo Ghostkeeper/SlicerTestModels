@@ -5,6 +5,9 @@ difference() {
     }
 }
 
+translate([24, 35, 0]) {
+    cube([5, 5, 10]);
+}
 translate([16,45,0]) {
     cube([5,5,10]);
 }
