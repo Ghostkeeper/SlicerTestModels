@@ -5,13 +5,19 @@
 //this narrow channel.
 channel_width = 0;
 radius = 10;
+height = 20;
 
 difference() {
-	cylinder(r=radius, h=4, $fn=32);
-	translate([0, -radius + channel_width, -1]) {
-		scale([0.25, 1, 1]) {
-			rotate([0, 0, 45]) {
-				cube(40);
+	cylinder(r=radius, h=height, $fn=32);
+	multmatrix([[1, 0, 0, 0],
+					[0, 1, 0.1, 0],
+					[0, 0, 1, 0],
+					[0, 0, 0, 1]]) { //Skew 1/10th from Z in Y-direction.
+		translate([0, -radius + channel_width, -1]) {
+			scale([0.25, 1, 1]) {
+				rotate([0, 0, 45]) {
+					cube(40);
+				}
 			}
 		}
 	}
