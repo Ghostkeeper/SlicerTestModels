@@ -1,6 +1,7 @@
 blocksize = 30; //Size of the squares.
 spacing = 1; //Spacing between the squares.
-relief = 0.4; //Height of the pattern of the squares.
+square_inset = 0.2; //How deep the squares are inset into the board.
+relief = 0.6; //Height of the pattern of the squares.
 d4_rib = 20; //Rib size of the D4 dice stored in the trays (determines size of the trays).
 lock_size = 10; //Size of the lock mechanism locking the trays.
 lock_height = 5; //How tall the lock is. Taller makes it stiffer.
@@ -51,6 +52,23 @@ if(include_board) {
 				tray_gap();
 			}
 		}
+		//Insets for squares.
+		for(x=[0:3]) for(y=[0:2]) {
+			translate([border + (blocksize + spacing) * x, border + (blocksize + spacing) * y, height - square_inset]) {
+				cube([blocksize, blocksize, square_inset + 0.01]);
+			}
+		}
+		for(x=[4:5]) {
+			y = 1;
+			translate([border + (blocksize + spacing) * x, border + (blocksize + spacing) * y, height - square_inset]) {
+				cube([blocksize, blocksize, square_inset + 0.01]);
+			}
+		}
+		for(x=[6:7]) for(y=[0:2]) {
+			translate([border + (blocksize + spacing) * x, border + (blocksize + spacing) * y, height - square_inset]) {
+				cube([blocksize, blocksize, square_inset + 0.01]);
+			}
+		}
 	}
 }
 
@@ -70,11 +88,9 @@ module tray_gap() {
 
 //Squares.
 if(include_squares) {
-	translate([border, border, height]) {
+	translate([border, border, height - square_inset]) {
 		//Bottom row.
-		translate([spacing, 0, 0]) {
-			rosetta();
-		}
+		rosetta();
 		translate([blocksize + spacing, 0, 0]) {
 			eyes();
 		}
@@ -92,9 +108,7 @@ if(include_squares) {
 		}
 		//Middle row.
 		translate([0, blocksize + spacing, 0]) {
-			translate([spacing, 0, 0]) {
-				squares();
-			}
+			squares();
 			translate([blocksize + spacing, 0, 0]) {
 				circles();
 			}
@@ -119,9 +133,7 @@ if(include_squares) {
 		}
 		//Top row.
 		translate([0, blocksize * 2 + spacing * 2, 0]) {
-			translate([spacing, 0, 0]) {
-				rosetta();
-			}
+			rosetta();
 			translate([blocksize + spacing, 0, 0]) {
 				eyes();
 			}
