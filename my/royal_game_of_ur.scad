@@ -1,28 +1,65 @@
-blocksize = 30;
-height = 20;
-spacing = 1;
-relief = 0.4;
-d4_rib = 20;
-lock_size = 10;
-thickness = 1;
-tile_height = 2;
+blocksize = 30; //Size of the squares.
+spacing = 1; //Spacing between the squares.
+relief = 0.4; //Height of the pattern of the squares.
+d4_rib = 20; //Rib size of the D4 dice stored in the trays (determines size of the trays).
+lock_size = 10; //Size of the lock mechanism locking the trays.
+thickness = 1; //Thickness of the borders of the trays and board.
+tile_height = 2; //Height of the playing tiles (pawns).
 
 $fs = 0.7;
 $fa = 1;
 
 //Calculations
 d4_height = d4_rib / 3 * sqrt(6) + 1; //1mm play.
-border = tile_height + spacing * 2;
+height = d4_height + thickness * 3;
+border = tile_height + spacing * 2 + 0.3; //0.3mm play.
+big_x = 4 * blocksize + 3 * spacing + 2 * border;
+gap_x = 2 * blocksize + 3 * spacing - 2 * border;
+board_y = 3 * blocksize + 2 * spacing + 2 * border;
+tray_width = blocksize + spacing - thickness;
+tray_height = d4_height + thickness;
 
 //Game board.
 difference() {
 	union() {
-		cube([4 * blocksize + 3 * spacing + 2 * border, 3 * blocksize + 2 * spacing + 2 * border, height]);
-		translate([4 * blocksize + 3 * spacing + 2 * border, blocksize + spacing, 0]) {
-			cube([2 * blocksize + 3 * spacing - 2 * border, blocksize + 2 * border, height]);
+		cube([big_x, board_y, height]);
+		translate([big_x, blocksize + spacing, 0]) {
+			cube([gap_x, blocksize + 2 * border, height]);
 		}
-		translate([6 * blocksize + 6 * spacing, 0, 0]) {
-			cube([2 * blocksize + spacing + 2 * border, 3 * blocksize + 2 * spacing + 2 * border, height]);
+		translate([big_x + gap_x, 0, 0]) {
+			cube([2 * blocksize + spacing + 2 * border, board_y, height]);
+		}
+	}
+	//Space for trays.
+	translate([big_x - gap_x - thickness - lock_size + 0.01, 0, thickness]) {
+		translate([0, thickness, 0]) {
+			tray_gap();
+		}
+		translate([0, board_y - blocksize - spacing, 0]) {
+			tray_gap();
+		}
+	}
+}
+
+module tray_gap() {
+	lock_radius = lock_size / 3;
+	linear_extrude(tray_height) {
+		difference() {
+			square([gap_x + thickness + lock_size, tray_width]);
+			translate([lock_size - lock_radius, tray_width / 2, 0]) {
+				circle(lock_radius);
+			}
+			translate([0, tray_width / 2 - lock_radius, 0]) {
+				difference() {
+					square(lock_radius * 2);
+					translate([lock_radius, lock_radius / -sqrt(2), 0]) {
+						circle(lock_radius * sqrt(1 + 1 / sqrt(2)));
+					}
+					translate([lock_radius, lock_radius * 2 + lock_radius / sqrt(2), 0]) {
+						circle(lock_radius * sqrt(1 + 1 / sqrt(2)));
+					}
+				}
+			}
 		}
 	}
 }
