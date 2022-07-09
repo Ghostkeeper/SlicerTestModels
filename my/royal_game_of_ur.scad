@@ -3,21 +3,28 @@ spacing = 1; //Spacing between the squares.
 relief = 0.4; //Height of the pattern of the squares.
 d4_rib = 20; //Rib size of the D4 dice stored in the trays (determines size of the trays).
 lock_size = 10; //Size of the lock mechanism locking the trays.
+lock_height = 5; //How tall the lock is. Taller makes it stiffer.
+lock_opening = 6; //How wide the opening is in the lock. Smaller makes it stiffer.
+lock_play = 0.2; //Play between the two components of the lock.
 thickness = 1; //Thickness of the borders of the trays and board.
 tile_height = 2; //Height of the playing tiles (pawns).
+finger_size = 20; //Size of the gap to pull the trays out.
 
 $fs = 0.7;
 $fa = 1;
 
-//Calculations
+//Calculations and play.
 d4_height = d4_rib / 3 * sqrt(6) + 1; //1mm play.
-height = d4_height + thickness * 3;
+tray_height = d4_height + thickness;
+tray_gap_height = tray_height + 0.3; //0.3mm play.
+height = tray_gap_height + thickness * 2;
 border = tile_height + spacing * 2 + 0.3; //0.3mm play.
 big_x = 4 * blocksize + 3 * spacing + 2 * border;
 gap_x = 2 * blocksize + 3 * spacing - 2 * border;
 board_y = 3 * blocksize + 2 * spacing + 2 * border;
-tray_width = blocksize + spacing - thickness;
-tray_height = d4_height + thickness;
+tray_gap_width = blocksize + spacing - thickness;
+tray_width = tray_gap_width - 0.4; //0.4mm play.
+lock_radius = (lock_size - thickness) / 2;
 
 //Game board.
 difference() {
@@ -42,22 +49,46 @@ difference() {
 }
 
 module tray_gap() {
-	lock_radius = lock_size / 3;
-	linear_extrude(tray_height) {
+	linear_extrude(tray_gap_height) {
 		difference() {
-			square([gap_x + thickness + lock_size, tray_width]);
-			translate([lock_size - lock_radius, tray_width / 2, 0]) {
-				circle(lock_radius);
+			square([gap_x + thickness + lock_size, tray_gap_width]);
+			translate([lock_size - lock_radius, tray_gap_width / 2, 0]) {
+				circle(lock_radius - lock_play);
 			}
-			translate([0, tray_width / 2 - lock_radius, 0]) {
-				difference() {
-					square(lock_radius * 2);
-					translate([lock_radius, lock_radius / -sqrt(2), 0]) {
-						circle(lock_radius * sqrt(1 + 1 / sqrt(2)));
-					}
-					translate([lock_radius, lock_radius * 2 + lock_radius / sqrt(2), 0]) {
-						circle(lock_radius * sqrt(1 + 1 / sqrt(2)));
-					}
+			translate([0, tray_gap_width / 2 - lock_opening / 2 + lock_play, 0]) {
+				square([thickness + lock_radius, lock_opening - lock_play * 2]);
+			}
+		}
+	}
+}
+
+module tray() {
+	tray_length = gap_x + thickness;
+	difference() {
+		cube([tray_length, tray_width, tray_height]);
+		translate([thickness, thickness, thickness]) {
+			difference() {
+				cube([tray_length - thickness * 2, tray_width - thickness * 2, tray_height - thickness + 0.01]);
+				translate([tray_length - thickness, tray_width / 2 - thickness, 0]) {
+					cylinder(h=tray_height - thickness, r1=finger_size / 2 + thickness, r2=thickness);
+				}
+			}
+		}
+		translate([tray_length, tray_width / 2, thickness]) {
+			cylinder(h=tray_height - thickness * 2, r1=finger_size / 2, r2=0);
+		}
+	}
+	translate([tray_length - thickness, 0, thickness]) {
+		cube([thickness, tray_width, thickness]); //Lip to catch the finger on.
+	}
+	//The lock clip.
+	translate([-lock_radius, tray_width / 2, 0]) {
+		linear_extrude(lock_height) {
+			difference() {
+				circle(lock_radius + thickness);
+				circle(lock_radius);
+				translate([-lock_radius - thickness, -lock_opening / 2, 0]) {
+					square([thickness + lock_radius, lock_opening]);
 				}
 			}
 		}
@@ -395,4 +426,11 @@ module sawtoothbig() {
 			}
 		}
 	}
+}
+
+translate([lock_size, board_y + 5, 0]) {
+	tray();
+}
+translate([lock_size, board_y + tray_width + 10, 0]) {
+	tray();
 }
