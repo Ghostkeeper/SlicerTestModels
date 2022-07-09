@@ -13,6 +13,10 @@ finger_size = 20; //Size of the gap to pull the trays out.
 $fs = 0.7;
 $fa = 1;
 
+include_board = true;
+include_squares = true;
+include_trays = true;
+
 //Calculations and play.
 d4_height = d4_rib / 3 * sqrt(6) + 1; //1mm play.
 tray_height = d4_height + thickness;
@@ -27,23 +31,25 @@ tray_width = tray_gap_width - 0.4; //0.4mm play.
 lock_radius = (lock_size - thickness) / 2;
 
 //Game board.
-difference() {
-	union() {
-		cube([big_x, board_y, height]);
-		translate([big_x, blocksize + spacing, 0]) {
-			cube([gap_x, blocksize + 2 * border, height]);
+if(include_board) {
+	difference() {
+		union() {
+			cube([big_x, board_y, height]);
+			translate([big_x, blocksize + spacing, 0]) {
+				cube([gap_x, blocksize + 2 * border, height]);
+			}
+			translate([big_x + gap_x, 0, 0]) {
+				cube([2 * blocksize + spacing + 2 * border, board_y, height]);
+			}
 		}
-		translate([big_x + gap_x, 0, 0]) {
-			cube([2 * blocksize + spacing + 2 * border, board_y, height]);
-		}
-	}
-	//Space for trays.
-	translate([big_x - gap_x - thickness - lock_size + 0.01, 0, thickness]) {
-		translate([0, thickness, 0]) {
-			tray_gap();
-		}
-		translate([0, board_y - blocksize - spacing, 0]) {
-			tray_gap();
+		//Space for trays.
+		translate([big_x - gap_x - thickness - lock_size + 0.01, 0, thickness]) {
+			translate([0, thickness, 0]) {
+				tray_gap();
+			}
+			translate([0, board_y - blocksize - spacing, 0]) {
+				tray_gap();
+			}
 		}
 	}
 }
@@ -62,89 +68,10 @@ module tray_gap() {
 	}
 }
 
-module tray() {
-	tray_length = gap_x + thickness;
-	difference() {
-		cube([tray_length, tray_width, tray_height]);
-		translate([thickness, thickness, thickness]) {
-			difference() {
-				cube([tray_length - thickness * 2, tray_width - thickness * 2, tray_height - thickness + 0.01]);
-				translate([tray_length - thickness, tray_width / 2 - thickness, 0]) {
-					cylinder(h=tray_height - thickness, r1=finger_size / 2 + thickness, r2=thickness);
-				}
-			}
-		}
-		translate([tray_length, tray_width / 2, thickness]) {
-			cylinder(h=tray_height - thickness * 2, r1=finger_size / 2, r2=0);
-		}
-	}
-	translate([tray_length - thickness, 0, thickness]) {
-		cube([thickness, tray_width, thickness]); //Lip to catch the finger on.
-	}
-	//The lock clip.
-	translate([-lock_radius, tray_width / 2, 0]) {
-		linear_extrude(lock_height) {
-			difference() {
-				circle(lock_radius + thickness);
-				circle(lock_radius);
-				translate([-lock_radius - thickness, -lock_opening / 2, 0]) {
-					square([thickness + lock_radius, lock_opening]);
-				}
-			}
-		}
-	}
-}
-
 //Squares.
-translate([border, border, height]) {
-	//Bottom row.
-	translate([spacing, 0, 0]) {
-		rosetta();
-	}
-	translate([blocksize + spacing, 0, 0]) {
-		eyes();
-	}
-	translate([blocksize * 2 + spacing * 2, 0, 0]) {
-		circles();
-	}
-	translate([blocksize * 3 + spacing * 3, 0, 0]) {
-		eyes();
-	}
-	translate([blocksize * 6 + spacing * 6, 0, 0]) {
-		rosetta();
-	}
-	translate([blocksize * 7 + spacing * 7, 0, 0]) {
-		sawtoothbig();
-	}
-	//Middle row.
-	translate([0, blocksize + spacing, 0]) {
-		translate([spacing, 0, 0]) {
-			squares();
-		}
-		translate([blocksize + spacing, 0, 0]) {
-			circles();
-		}
-		translate([blocksize * 2 + spacing * 2, 0, 0]) {
-			sawtooths();
-		}
-		translate([blocksize * 3 + spacing * 3, 0, 0]) {
-			rosetta();
-		}
-		translate([blocksize * 4 + spacing * 4, 0, 0]) {
-			circles();
-		}
-		translate([blocksize * 5 + spacing * 5, 0, 0]) {
-			sawtooths();
-		}
-		translate([blocksize * 6 + spacing * 6, 0, 0]) {
-			eyes();
-		}
-		translate([blocksize * 7 + spacing * 7, 0, 0]) {
-			circles();
-		}
-	}
-	//Top row.
-	translate([0, blocksize * 2 + spacing * 2, 0]) {
+if(include_squares) {
+	translate([border, border, height]) {
+		//Bottom row.
 		translate([spacing, 0, 0]) {
 			rosetta();
 		}
@@ -162,6 +89,54 @@ translate([border, border, height]) {
 		}
 		translate([blocksize * 7 + spacing * 7, 0, 0]) {
 			sawtoothbig();
+		}
+		//Middle row.
+		translate([0, blocksize + spacing, 0]) {
+			translate([spacing, 0, 0]) {
+				squares();
+			}
+			translate([blocksize + spacing, 0, 0]) {
+				circles();
+			}
+			translate([blocksize * 2 + spacing * 2, 0, 0]) {
+				sawtooths();
+			}
+			translate([blocksize * 3 + spacing * 3, 0, 0]) {
+				rosetta();
+			}
+			translate([blocksize * 4 + spacing * 4, 0, 0]) {
+				circles();
+			}
+			translate([blocksize * 5 + spacing * 5, 0, 0]) {
+				sawtooths();
+			}
+			translate([blocksize * 6 + spacing * 6, 0, 0]) {
+				eyes();
+			}
+			translate([blocksize * 7 + spacing * 7, 0, 0]) {
+				circles();
+			}
+		}
+		//Top row.
+		translate([0, blocksize * 2 + spacing * 2, 0]) {
+			translate([spacing, 0, 0]) {
+				rosetta();
+			}
+			translate([blocksize + spacing, 0, 0]) {
+				eyes();
+			}
+			translate([blocksize * 2 + spacing * 2, 0, 0]) {
+				circles();
+			}
+			translate([blocksize * 3 + spacing * 3, 0, 0]) {
+				eyes();
+			}
+			translate([blocksize * 6 + spacing * 6, 0, 0]) {
+				rosetta();
+			}
+			translate([blocksize * 7 + spacing * 7, 0, 0]) {
+				sawtoothbig();
+			}
 		}
 	}
 }
@@ -428,9 +403,44 @@ module sawtoothbig() {
 	}
 }
 
-translate([lock_size, board_y + 5, 0]) {
-	tray();
+if(include_trays) {
+	translate([lock_size, board_y + 5, 0]) {
+		tray();
+	}
+	translate([lock_size, board_y + tray_width + 10, 0]) {
+		tray();
+	}
 }
-translate([lock_size, board_y + tray_width + 10, 0]) {
-	tray();
+
+module tray() {
+	tray_length = gap_x + thickness;
+	difference() {
+		cube([tray_length, tray_width, tray_height]);
+		translate([thickness, thickness, thickness]) {
+			difference() {
+				cube([tray_length - thickness * 2, tray_width - thickness * 2, tray_height - thickness + 0.01]);
+				translate([tray_length - thickness, tray_width / 2 - thickness, 0]) {
+					cylinder(h=tray_height - thickness, r1=finger_size / 2 + thickness, r2=thickness);
+				}
+			}
+		}
+		translate([tray_length, tray_width / 2, thickness]) {
+			cylinder(h=tray_height - thickness * 2, r1=finger_size / 2, r2=0);
+		}
+	}
+	translate([tray_length - thickness, 0, thickness]) {
+		cube([thickness, tray_width, thickness]); //Lip to catch the finger on.
+	}
+	//The lock clip.
+	translate([-lock_radius, tray_width / 2, 0]) {
+		linear_extrude(lock_height) {
+			difference() {
+				circle(lock_radius + thickness);
+				circle(lock_radius);
+				translate([-lock_radius - thickness, -lock_opening / 2, 0]) {
+					square([thickness + lock_radius, lock_opening]);
+				}
+			}
+		}
+	}
 }
