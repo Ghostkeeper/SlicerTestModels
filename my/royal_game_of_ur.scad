@@ -9,6 +9,7 @@ lock_opening = 6; //How wide the opening is in the lock. Smaller makes it stiffe
 lock_play = 0.2; //Play between the two components of the lock.
 thickness = 1; //Thickness of the borders of the trays and board.
 tile_height = 2; //Height of the playing tiles (pawns).
+tile_diameter = 20; //Width of the playing tiles.
 finger_size = 20; //Size of the gap to pull the trays out.
 
 $fs = 0.7;
@@ -17,6 +18,8 @@ $fa = 1;
 include_board = true;
 include_squares = true;
 include_trays = true;
+include_tiles_p1 = true;
+include_tiles_p2 = true;
 
 //Calculations and play.
 d4_height = d4_rib / 3 * sqrt(6) + 1; //1mm play.
@@ -452,6 +455,44 @@ module tray() {
 				translate([-lock_radius - thickness, -lock_opening / 2, 0]) {
 					square([thickness + lock_radius, lock_opening]);
 				}
+			}
+		}
+	}
+}
+
+translate([lock_size + gap_x + thickness + 5, board_y + 5, 0]) {
+	if(include_tiles_p1) {
+		for(i = [0:6]) { //7 tiles per player.
+			translate([(tile_diameter + 1) * i + tile_diameter / 2, tile_diameter / 2, 0]) {
+				tile();
+			}
+		}
+	}
+	if(include_tiles_p2) {
+		for(i = [0:6]) {
+			translate([(tile_diameter + 1) * i + tile_diameter / 2, tile_diameter * 1.5 + 1 , 0]) {
+				tile();
+			}
+		}
+	}
+}
+
+module tile() {
+	linear_extrude(tile_height) {
+		difference() {
+			circle(tile_diameter / 2);
+			circle(blocksize * 0.05);
+			translate([blocksize * -0.08, blocksize * -0.08, 0]) {
+				circle(blocksize * 0.05);
+			}
+			translate([blocksize * 0.08, blocksize * -0.08, 0]) {
+				circle(blocksize * 0.05);
+			}
+			translate([blocksize * 0.08, blocksize * 0.08, 0]) {
+				circle(blocksize * 0.05);
+			}
+			translate([blocksize * -0.08, blocksize * 0.08, 0]) {
+				circle(blocksize * 0.05);
 			}
 		}
 	}
