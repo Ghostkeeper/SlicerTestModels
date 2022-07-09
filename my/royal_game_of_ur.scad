@@ -2,86 +2,97 @@ blocksize = 30;
 height = 20;
 spacing = 1;
 relief = 0.4;
+d4_rib = 20;
+lock_size = 10;
+thickness = 1;
+tile_height = 2;
+
 $fs = 0.7;
 $fa = 1;
 
+//Calculations
+d4_height = d4_rib / 3 * sqrt(6) + 1; //1mm play.
+border = tile_height + spacing * 2;
+
 //Game board.
-cube([4 * blocksize + 5 * spacing, 3 * blocksize + 4 * spacing, height]);
-translate([4 * blocksize + 5 * spacing, blocksize + spacing, 0]) {
-	cube([2 * blocksize + spacing, blocksize + 2 * spacing, height]);
-}
-translate([6 * blocksize + 6 * spacing, 0, 0]) {
-	cube([2 * blocksize + 3 * spacing, 3 * blocksize + 4 * spacing, height]);
+difference() {
+	union() {
+		cube([4 * blocksize + 3 * spacing + 2 * border, 3 * blocksize + 2 * spacing + 2 * border, height]);
+		translate([4 * blocksize + 3 * spacing + 2 * border, blocksize + spacing, 0]) {
+			cube([2 * blocksize + 3 * spacing - 2 * border, blocksize + 2 * border, height]);
+		}
+		translate([6 * blocksize + 6 * spacing, 0, 0]) {
+			cube([2 * blocksize + spacing + 2 * border, 3 * blocksize + 2 * spacing + 2 * border, height]);
+		}
+	}
 }
 
 //Squares.
-translate([0, 0, height]) {
+translate([border, border, height]) {
 	//Bottom row.
-	translate([0, spacing, 0]) {
-		translate([spacing, 0, 0]) {
-			rosetta();
-		}
-		translate([blocksize + spacing * 2, 0, 0]) {
-			eyes();
-		}
-		translate([blocksize * 2 + spacing * 3, 0, 0]) {
-			circles();
-		}
-		translate([blocksize * 3 + spacing * 4, 0, 0]) {
-			eyes();
-		}
-		translate([blocksize * 6 + spacing * 7, 0, 0]) {
-			rosetta();
-		}
-		translate([blocksize * 7 + spacing * 8, 0, 0]) {
-			sawtoothbig();
-		}
+	translate([spacing, 0, 0]) {
+		rosetta();
+	}
+	translate([blocksize + spacing, 0, 0]) {
+		eyes();
+	}
+	translate([blocksize * 2 + spacing * 2, 0, 0]) {
+		circles();
+	}
+	translate([blocksize * 3 + spacing * 3, 0, 0]) {
+		eyes();
+	}
+	translate([blocksize * 6 + spacing * 6, 0, 0]) {
+		rosetta();
+	}
+	translate([blocksize * 7 + spacing * 7, 0, 0]) {
+		sawtoothbig();
 	}
 	//Middle row.
-	translate([0, blocksize + spacing * 2, 0]) {
+	translate([0, blocksize + spacing, 0]) {
 		translate([spacing, 0, 0]) {
 			squares();
 		}
-		translate([blocksize + spacing * 2, 0, 0]) {
+		translate([blocksize + spacing, 0, 0]) {
 			circles();
 		}
-		translate([blocksize * 2 + spacing * 3, 0, 0]) {
+		translate([blocksize * 2 + spacing * 2, 0, 0]) {
 			sawtooths();
 		}
-		translate([blocksize * 3 + spacing * 4, 0, 0]) {
+		translate([blocksize * 3 + spacing * 3, 0, 0]) {
 			rosetta();
 		}
-		translate([blocksize * 4 + spacing * 5, 0, 0]) {
+		translate([blocksize * 4 + spacing * 4, 0, 0]) {
 			circles();
 		}
-		translate([blocksize * 5 + spacing * 6, 0, 0]) {
+		translate([blocksize * 5 + spacing * 5, 0, 0]) {
 			sawtooths();
 		}
-		translate([blocksize * 6 + spacing * 7, 0, 0]) {
+		translate([blocksize * 6 + spacing * 6, 0, 0]) {
 			eyes();
 		}
-		translate([blocksize * 7 + spacing * 8, 0, 0]) {
+		translate([blocksize * 7 + spacing * 7, 0, 0]) {
 			circles();
 		}
 	}
 	//Top row.
-	translate([0, blocksize * 2 + spacing * 3, 0]) {
+	translate([0, blocksize * 2 + spacing * 2, 0]) {
 		translate([spacing, 0, 0]) {
 			rosetta();
 		}
-		translate([blocksize + spacing * 2, 0, 0]) {
+		translate([blocksize + spacing, 0, 0]) {
 			eyes();
 		}
-		translate([blocksize * 2 + spacing * 3, 0, 0]) {
+		translate([blocksize * 2 + spacing * 2, 0, 0]) {
 			circles();
 		}
-		translate([blocksize * 3 + spacing * 4, 0, 0]) {
+		translate([blocksize * 3 + spacing * 3, 0, 0]) {
 			eyes();
 		}
-		translate([blocksize * 6 + spacing * 7, 0, 0]) {
+		translate([blocksize * 6 + spacing * 6, 0, 0]) {
 			rosetta();
 		}
-		translate([blocksize * 7 + spacing * 8, 0, 0]) {
+		translate([blocksize * 7 + spacing * 7, 0, 0]) {
 			sawtoothbig();
 		}
 	}
