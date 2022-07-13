@@ -1,0 +1,9 @@
+solid VerticalLine
+facet
+outer loop
+vertex 0 0 0
+vertex 0 0 40
+vertex 0 0 0
+endloop
+endfacet
+endsolid VerticalLine
