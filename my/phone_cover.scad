@@ -30,7 +30,7 @@ microphone_x = 45.0;
 microphone_width = 15.0;
 microphone_depth = 5.0;
 
-jack_sleeve_diameter = 10.4; //Allow a bit of play for inaccuracy in printing.
+jack_sleeve_diameter = 10.7; //Allow a bit of play for inaccuracy in printing.
 jack_sleeve_length = 22.0; //How long the tube for the jack is.
 
 //Settings
