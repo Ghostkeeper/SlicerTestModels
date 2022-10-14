@@ -5,6 +5,7 @@ size = 20; //Determines the total scale of the model.
 hole_diameter = 2;
 front_text = "H";
 back_text = "R";
+font = "Dancing Script";
 
 //Calculations.
 alength = 180 / resolution + 1; //Number of coordinates in the A polar coordinate.
@@ -40,17 +41,17 @@ difference() {
 	//Text.
 	translate([0, size / 4, -size / 2]) {
 		rotate([90, 0, 0]) {
-			linear_extrude(size / 8) {
+			linear_extrude(size / 16) {
 				mirror([1, 0, 0]) {
-					#text(front_text, size=size / 2, valign="center", halign="center");
+					text(front_text, size=size / 2, valign="center", halign="center", font=font);
 				}
 			}
 		}
 	}
-	translate([0, -size / 4 + size / 8, -size / 2]) {
+	translate([0, -size / 4 + size / 16, -size / 2]) {
 		rotate([90, 0, 0]) {
-			linear_extrude(size / 8) {
-				#text(back_text, size=size / 2, valign="center", halign="center");
+			linear_extrude(size / 16) {
+				text(back_text, size=size / 2, valign="center", halign="center", font=font);
 			}
 		}
 	}
