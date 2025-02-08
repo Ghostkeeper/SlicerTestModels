@@ -5,7 +5,7 @@ radius = 51.1 / 2;
 play = 0.2;
 thickness = 1;
 ledge = 5;
-length = 30;
+length = 38.3;
 $fs = 0.6;
 $fa = 0.1;
 

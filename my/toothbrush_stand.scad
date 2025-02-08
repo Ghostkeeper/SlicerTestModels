@@ -1,5 +1,5 @@
 height = 130;
-brush_width = 10.7;
+brush_width = 10.2;
 
 include <fillet.scad>;
 
@@ -14,6 +14,9 @@ difference() {
 				cylinder(r=10, h=brush_width + 2, $fn=180);
 			}
 		}
+		translate([-15, -brush_width / 2 - 1, height - 10]) {
+			cube([18, brush_width + 2, 11]);
+		}
 	}
 	translate([21, 0, 17]) {
 		sphere(r=27, $fn=120);
@@ -25,7 +28,12 @@ difference() {
 			}
 		}
 	}
-	translate([0, 0, height - 20]) {
-		cylinder(r=brush_width / 2, h=40, $fn=180);
+	hull() {
+		translate([0, 0, height - 20]) {
+			cylinder(r=brush_width / 2, h=40, $fn=180);
+		}
+		translate([10, 0, height - 20]) {
+			cylinder(r=brush_width / 2, h=40);
+		}
 	}
 }
