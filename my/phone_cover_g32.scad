@@ -15,12 +15,13 @@ speaker_width = 2;
 cam_x = 43.5;
 cam_width = 24.9;
 cam_y = 125.1;
-cam_height = 30;
+cam_height = 30.5;
 speaker_top_x = cam_x + 3.5;
 speaker_top_z = 0.7;
 volume_y = 90.6;
 volume_height = 45;
 volume_indent = 2;
+volume_separator_y = 20.5;
 radius = 8;
 bottom_curve_radius = 5;
 bottom_curve_indent = 2;
@@ -29,6 +30,7 @@ strength = 1;
 jack_strength = 2;
 jack_sleeve_length = 22;
 bottom_shelf_width = 3.8;
+volume_separator_size = 2;
 $fn = 181;
 
 bottom_curve_center = sin(acos(1 - bottom_curve_indent / bottom_curve_radius)) * bottom_curve_radius;
@@ -95,7 +97,7 @@ difference() {
 		}
 	}
 	translate([0, -jack_sleeve_length - strength - 1, -strength - jack_strength + jack_z_offset]) {
-		#cube([width, jack_sleeve_length + strength + height + 1, jack_strength - jack_z_offset]);
+		cube([width, jack_sleeve_length + strength + height + 1, jack_strength - jack_z_offset]);
 	}
 	translate([speaker_x, 1, thickness / 2]) {
 		rotate([90, 0, 10]) {
@@ -113,12 +115,19 @@ difference() {
 	translate([mic_x - mic_width / 2, -strength - 1, thickness / 2 - mic_thickness / 2]) {
 		cube([mic_width, strength + 2, mic_thickness]);
 	}
-	translate([width - 1, volume_y, thickness / 2 - volume_indent]) {
-		multmatrix([[1, 0, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
-			cube([strength + 2, volume_height, thickness]);
+	difference() {
+		translate([width - 1, volume_y, thickness / 2 - volume_indent]) {
+			multmatrix([[1, 0, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+				cube([strength + 2, volume_height, thickness]);
+			}
+			multmatrix([[1, 0, 0, 0], [0, 1, -1, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
+				cube([strength + 2, volume_height, thickness]);
+			}
 		}
-		multmatrix([[1, 0, 0, 0], [0, 1, -1, 0], [0, 0, 1, 0], [0, 0, 0, 1]]) {
-			cube([strength + 2, volume_height, thickness]);
+		translate([width + strength / 2, volume_y + volume_separator_y, thickness / 2 - volume_indent]) {
+			rotate([45, 0, 0]) {
+				cube([strength + 2, volume_separator_size, volume_separator_size], center=true);
+			}
 		}
 	}
 	translate([cam_x, cam_y, -strength - 1]) {
