@@ -1,9 +1,11 @@
-diameter = 150;
+screw_distance = 183;
+screw_radius = 2 / 2;
+diameter = 200;
 s1_x = 20;
 s1_y = 130;
 s2_x = 130;
 s2_y = 20;
-top_width = 100 / 2;
+top_width = 120 / 2;
 
 slope = 10;
 height = 20;
@@ -11,7 +13,9 @@ curve_n = 30;
 thickness_hor = 2;
 thickness_ver = 2;
 
-function sigmoid(x) = 1 / (1 + exp(-(-x + 0.5) * 10));
+steepness = 5; //Higher is closer to a square wave function, lower is gentler slope.
+offset = 0.16; //Correction, especially for low steepness, for not having exactly the 0-1 range.
+function sigmoid(x) = (1 + offset) / (1 + exp(-(-x + 0.5) * steepness)) - offset / 2;
 
 module cap_shape(width, hole_radius, slope_offset) {
     points = concat([for(a = [0:89]) for(n = [0:curve_n - 1]) [min(cos(a) * width / 2, hole_radius / sin(a)), sin(a) * width / 2 * n / curve_n + min(sin(a) * width / 2, hole_radius) * (1 - n / curve_n), sigmoid(n / curve_n) * (sin(slope) * cos(a) * width / 2 + slope_offset)]], [for(a = [90:270]) for(n = [0:curve_n - 1]) [cos(a) * (hole_radius + n / curve_n * (width / 2 - hole_radius)), sin(a) * (hole_radius + n / curve_n * (width / 2 - hole_radius)), sigmoid(n / curve_n) * (sin(slope) * cos(a) * hole_radius + slope_offset)]], [for(a = [270:359]) for(n = [0:curve_n - 1]) [max(cos(a) * width / 2, hole_radius / sin(a)), sin(a) * width / 2 * n / curve_n + max(sin(a) * width / 2, -hole_radius) * (1 - n / curve_n), sigmoid(n / curve_n) * (sin(slope) * cos(a) * width / 2 + slope_offset)]]);
@@ -27,4 +31,10 @@ difference() {
             cube([diameter, top_width * 2 - thickness_hor * 2, 100 + height - thickness_ver]);
         }
     }
+	 translate([0, -screw_distance / 2, -1]) {
+		 cylinder(h=height, r=screw_radius, $fn=30);
+	 }
+	 translate([0, screw_distance / 2, -1]) {
+		 cylinder(h=height, r=screw_radius, $fn=30);
+	 }
 }
