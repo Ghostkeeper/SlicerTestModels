@@ -10,20 +10,20 @@ face_card_width = 32;
 dragon_card_length = 53;
 dragon_card_width = 38;
 
-space_items_depth = 7;
-namek_items_depth = 21;
-earth_items_depth = 21;
-dragon_cards_depth = 1;
-objective_cards_depth = 9;
-event_cards_depth = 21;
-face_cards_depth = 9;
+space_items_depth = 9.5;
+namek_items_depth = 23.5;
+earth_items_depth = 23.5;
+dragon_cards_depth = 4.5;
+objective_cards_depth = 11.5;
+event_cards_depth = 23.5;
+face_cards_depth = 11.5;
 
 pens_shenzu_length = 238;
 pens_shenzu_width = 71.5;
-pens_shenzu_depth = 33.8;
-character_sheets_length = 216;
-character_sheets_width = 154;
-character_sheets_depth = 22;
+pens_shenzu_depth = 30.8;
+character_sheets_length = 219.5;
+character_sheets_width = 157.5;
+character_sheets_depth = 20;
 
 box_width = 254; //Size of the cardboard box.
 
@@ -33,23 +33,23 @@ card_play = 1; //Amount of play (mm) around each card to let them fall in more e
 card_depth_play = 1; //Amount of extra depth for the stacks of cards so they don't slide away out of their crevice.
 box_play = 0.5; //Amount of play (mm) of the inlay to fit easily inside the cardboard box.
 finger_diameter = 23; //How much space to leave for fingers to pick up cards.
-finger_extra_depth = 3; //So that you can pick up the cards more easily.
-thickness_ver = 1; //Minimum thickness of the floor.
+finger_extra_depth = 2; //So that you can pick up the cards more easily.
+thickness_ver = 0.5; //Minimum thickness of the floor.
 round_size = 2; //Radius of the rounding of outside edges.
 fillet_size = 1; //Radius of the rounding of inside edges.
-//$fs = 0.2; //Resolution of circles (segment length).
-//$fa = 1; //Resolution of circles (degrees).
-$fn = 10;
+$fs = 0.2; //Resolution of circles (segment length).
+$fa = 1; //Resolution of circles (degrees).
+//$fn = 10;
 
 //===== Implementation below. Don't change (unless you know what you're doing) ======
 
 //Calculations for sizes that we'll need.
-total_depth = max(max(space_items_depth, namek_items_depth, earth_items_depth, dragon_cards_depth, event_cards_depth) + card_depth_play + character_sheets_depth, face_cards_depth + card_depth_play + pens_shenzu_depth) + finger_extra_depth + thickness_ver;
+total_depth = max(max(space_items_depth, namek_items_depth, earth_items_depth, dragon_cards_depth, event_cards_depth, objective_cards_depth) + card_depth_play + character_sheets_depth, face_cards_depth + card_depth_play + pens_shenzu_depth) + finger_extra_depth + thickness_ver;
 inlay_width = box_width - box_play * 2;
 layer1_spacing = (inlay_width - pens_shenzu_width - character_sheets_width) / 3;
 face_cards_spacing = (pens_shenzu_length - face_card_width * 6 - card_play * 12) / 7;
-big_cards_x_spacing = (character_sheets_width - big_card_length * 2 - card_play * 4) / 3;
-big_cards_y_spacing = (character_sheets_length - big_card_width * 4 - card_play * 8) / 5;
+big_cards_x_spacing = character_sheets_width - big_card_length * 2 - card_play * 4;
+big_cards_y_spacing = (character_sheets_length - big_card_width * 4 - card_play * 8) / 3;
 
 echo("Inlay size is:", str(inlay_width), str(inlay_width), str(total_depth));
 
@@ -121,8 +121,8 @@ module hole_mask(length, width, depth) {
 module circular_round(radius, angle=360) {
 	rotate_extrude(angle=angle) {
 		difference() {
-			translate([radius - 1, 0, -1]) {
-				square(round_size + 1);
+			translate([radius - 0.1, 0, -0.1]) {
+				square(round_size + 0.1);
 			}
 			translate([radius + round_size, 0, 0]) {
 				circle(round_size);
@@ -138,13 +138,25 @@ module finger_hole(finger_depth, depth, middle_level_rotate) {
 			sphere(fillet_size);
 		}
 	}
-	translate([0, 0, finger_depth + round_size]) {
+	translate([0, 0, finger_depth + finger_extra_depth - round_size / 2]) {
 		circular_round(finger_diameter / 2);
 	}
-	translate([0, 0, card_depth_play + finger_depth - depth]) {
+	translate([0, 0, card_depth_play + finger_depth - depth - finger_extra_depth + fillet_size]) {
 		rotate([0, 0, middle_level_rotate]) {
 			circular_round(finger_diameter / 2, angle=180);
 		}
+	}
+}
+
+module outside_finger_hole(depth) {
+	translate([0, 0, -depth]) {
+		minkowski() {
+			cylinder(h=depth, r=finger_diameter / 2 - fillet_size);
+			sphere(fillet_size);
+		}
+	}
+	translate([0, 0, -round_size]) {
+		circular_round(finger_diameter / 2);
 	}
 }
 
@@ -207,7 +219,7 @@ intersection() {
 		}
 		intersection() {
 			union() {
-				translate([layer1_spacing * 2 + pens_shenzu_width + big_cards_x_spacing, inlay_width / 2 - character_sheets_length / 2 + big_cards_y_spacing, total_depth - character_sheets_depth]) {
+				translate([layer1_spacing * 2 + pens_shenzu_width, inlay_width / 2 - character_sheets_length / 2, total_depth - character_sheets_depth]) {
 					card(big_card_length, big_card_width, objective_cards_depth);
 					translate([0, big_card_width + card_play * 2 + big_cards_y_spacing, 0]) {
 						card(big_card_length, big_card_width, objective_cards_depth);
@@ -219,7 +231,7 @@ intersection() {
 						card(big_card_length, big_card_width, event_cards_depth);
 					}
 				}
-				translate([layer1_spacing * 2 + pens_shenzu_width + big_cards_x_spacing * 2 + big_card_length + card_play * 2, inlay_width / 2 - character_sheets_length / 2 + big_cards_y_spacing, total_depth - character_sheets_depth]) {
+				translate([layer1_spacing * 2 + pens_shenzu_width + big_cards_x_spacing + big_card_length + card_play * 2, inlay_width / 2 - character_sheets_length / 2, total_depth - character_sheets_depth]) {
 					card(big_card_length, big_card_width, space_items_depth, left_depth=namek_items_depth);
 					translate([0, big_card_width + card_play * 2 + big_cards_y_spacing, 0]) {
 						card(big_card_length, big_card_width, namek_items_depth);
@@ -235,6 +247,20 @@ intersection() {
 			translate([layer1_spacing * 2 + pens_shenzu_width, inlay_width / 2 - character_sheets_length / 2, total_depth]) {
 				hole_mask(character_sheets_width, character_sheets_length, character_sheets_depth);
 			}
+		}
+		
+		//Outside finger holes for the character sheets.
+		translate([layer1_spacing * 2 + pens_shenzu_width + big_card_length / 2 + card_play, box_width / 2 - character_sheets_length / 2, total_depth]) {
+			outside_finger_hole(character_sheets_depth + objective_cards_depth + finger_extra_depth);
+		}
+		translate([layer1_spacing * 2 + pens_shenzu_width + big_cards_x_spacing + big_card_length * 3 / 2 + card_play * 3, box_width / 2 - character_sheets_length / 2, total_depth]) {
+			outside_finger_hole(character_sheets_depth + space_items_depth + finger_extra_depth);
+		}
+		translate([layer1_spacing * 2 + pens_shenzu_width + big_card_length / 2 + card_play, box_width / 2 + character_sheets_length / 2, total_depth]) {
+			outside_finger_hole(character_sheets_depth + event_cards_depth + finger_extra_depth);
+		}
+		translate([layer1_spacing * 2 + pens_shenzu_width + big_cards_x_spacing + big_card_length * 3 / 2 + card_play * 3, box_width / 2 + character_sheets_length / 2 - (big_card_width - dragon_card_width) / 2, total_depth]) {
+			outside_finger_hole(character_sheets_depth + dragon_cards_depth + finger_extra_depth);
 		}
 	}
 	if(segment == 1) {
